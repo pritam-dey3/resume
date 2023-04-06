@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<!-- <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>My Resume</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-OUq3wq/hJ6o5ID0oGjzPNg1f7R9JgljOZXfCv/V+MAySux+zNzwOlvDMb8+P0oJ/4hngBAdpeWtT8FtTZZeQyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-Bmb9KjCk8PeHgJdp1wNwK0DBH2Q1m1TkBbu3+q3IqoLr/Or8PmMzF0KjBs2NQ1Aw" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+</head> -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Pritam Dey</title>
+  </head>
+
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  padding-top: 70px; /* add padding to the top to compensate for the height of the fixed nav bar */
+}
+
+/* reduce the top padding of the first section to avoid extra space */
+section:first-child {
+  padding-top: 50px;
+}
+  </style>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">My Resume</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#experience">Experience</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#skills">Skills and Interests</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#hobbies">Hobbies</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <section id="home">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://via.placeholder.com/300x300" alt="Profile picture" class="img-fluid rounded-circle mb-3">
+        </div>
+        <div class="col-md-6">
+          <h2>About Me</h2>
+          <p>I am a highly motivated and passionate individual with 5 years of experience in the software industry. I am proficient in Java, Python, and JavaScript and have experience in developing web applications and APIs. I am a quick learner and enjoy working in a team environment.</p>
+          <a href="#" class="btn btn-primary"><i class="fas fa-file-pdf me-2"></i>Download Resume</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="experience">
+    <div class="container">
+      <h2>Experience</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Software Developer</h3>
+          <h4>ABC Software Inc.</h4>
+          <p>June 2019 - Present</p>
+          <ul>
+            <li>Developed and maintained web applications using Java, Spring Boot, and AngularJS.</li>
+            <li>Designed and implemented RESTful APIs using Python and Flask.</li>
+            <li>Collaborated with cross-functional teams to identify and resolve technical issues.</li>
+            <li>Participated in code reviews and provided feedback to other developers.</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>Software Developer Intern</h3>
+          <h4>XYZ Corporation</h4>
+          <p>May 2018 - August 2018</p>
+          <ul>
+            <li>Assisted in the development of a mobile application using React Native.</li>
+            <li>Implemented user authentication and authorization using Firebase.</li>
+            <li>Collaborated with the design team to implement a responsive UI design.</li>
+            <li>Participated in daily stand-up meetings and code reviews.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="skills">
+    <div class="container">
+      <h2>Skills and Interests</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Skills</h3>
+          <ul>
+            <li>Java</li>
+            <li>Python</li>
+            <li>JavaScript</li>
+            <li>AngularJS</li>
+            <li>React Native</li>
+            <li>Spring Boot</li>
+            <li>Flask</li>
+            <li>Git</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <h3>Interests</h3>
+          <ul>
+            <li>Reading about new technologies</li>
+            <li>Playing video games</li>
+            <li>Learning new programming languages</li>
+            <li>Attending tech conferences</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="hobbies">
+    <div class="container">
+      <h2>Hobbies</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Video Games</h3>
+          <p>I enjoy playing video games in my free time. Some of my favorite games are the Witcher series, the Dark Souls series, and the Elder Scrolls series.</p>
+        </div>
+        <div class="col-md-6">
+          <h3>Reading</h3>
+          <p>I love to read books on technology, science, and philosophy. Some of my favorite authors are Yuval Noah Harari, Carl Sagan, and Richard Dawkins.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-light text-center">
+    <div class="container p-4">
+      <p>&copy; 2023 My Resume. All rights reserved.</p>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+</footer>
+</body>
+<script>
+    // Get all the nav links
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+    // Get all the sections
+    const sections = document.querySelectorAll('section');
+
+    // Function to check if an element is in viewport
+    const isInViewport = (element) => {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+    };
+
+    // Function to set the active link
+    const setActiveLink = () => {
+      for (let i = 0; i < sections.length; i++) {
+        if (isInViewport(sections[i])) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          navLinks[i].classList.add('active');
+        }
+      }
+    };
+
+    // Call setActiveLink on load and scroll
+    window.addEventListener('load', setActiveLink);
+    window.addEventListener('scroll', setActiveLink);
+  </script>
+
+</html>

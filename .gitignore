@@ -1,0 +1,6 @@
+.git
+test/
+cache
+.doit.db
+__pycache__
+output

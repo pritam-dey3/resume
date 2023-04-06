@@ -1,0 +1,58 @@
+## -*- coding: utf-8 -*-
+<%namespace name="helper" file="index_helper.tmpl"/>
+<%namespace name="comments" file="comments_helper.tmpl"/>
+<%inherit file="base.tmpl"/>
+
+<%block name="extra_head">
+    ${parent.extra_head()}
+    % if posts and (permalink == '/' or permalink == '/' + index_file):
+        <link rel="prefetch" href="${posts[0].permalink()}" type="text/html">
+    % endif
+</%block>
+
+
+<%block name="section_links">
+% for post in sort_posts(posts, "rank"):
+    % if post.meta('category') != 'Section':
+        <% continue %>
+    % endif
+        <a class="list-group-item list-group-item-action" href="#${post.meta('slug')}">${post.title()}</a>
+% endfor
+</%block>
+
+
+<%block name="content">
+<section id="home">
+    <div class="row align-items-stretch">
+    <div class="col-md-2"></div>
+    <div class="col-md-4 align-center">
+        <img src="assets/imgs/profile_img.jpg" alt="Profile picture" class="profile img-fluid rounded-circle mb-3">
+    </div>
+    <div class="col-md-6 align-items-center">
+    <div class="">
+        <h2>About Me</h2>
+        <p>As a data scientist with a curious mindset, I am passionate about staying up-to-date on the latest developments in machine learning and artificial intelligence. With a particular interest in NLP/NLG, computer vision, and traditional ML, I wish to comprehensively understand models and find their practical applications, in order to solve intricate real world challenges.  I am committed to leveraging my skills to develop innovative solutions that drive meaningful results and create value for businesses and individuals alike.</p>
+    </div>
+    </div>
+    </div>
+  </section>
+    % for post in sort_posts(posts, "rank"):
+        % if post.meta('category') != 'Section':
+            <% continue %>
+        % endif
+        <section id="${post.meta('slug')}">
+        <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <h2>${post.title()}</h2>
+            % if post.description():
+            <p>${post.description()}</p>
+            % endif
+            ${post.text()}
+        </div>
+        </div>
+        </section>
+  % endfor
+</div>
+</%block>
+
