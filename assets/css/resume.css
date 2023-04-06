@@ -1,0 +1,25 @@
+.profile {
+    width: 300px;
+    height: 300px;
+}
+
+.list-group-item, #sections {
+    background-color: #c5dcb3;
+    border-radius: 0;
+  }
+
+.navbar, .navbar * {
+    background-color: #ffffff;
+}
+.navbar {
+    border: 1px solid #000000;
+}
+
+/* reduce the top padding of the first section to avoid extra space */
+section:first-child {
+    padding-top: 50px;
+  }
+
+section:not(section section):nth-of-type(odd) {
+    background-color: #f6f7f6;
+}
