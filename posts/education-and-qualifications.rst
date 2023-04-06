@@ -8,13 +8,18 @@
 .. rank: 6
 
 
-* Indian Statistical Institute – (2019 - 2021)
-  * Master of Statistics
-  Grade: 68% in 1st year
+* Indian Statistical Institute - (2019 - 2021)
 
-* Ramakrishna Mission Residential College, Narendrapur – (2016 - 2019)
+    * Master of Statistics
+    
+        Grade: 73%
+
+* Ramakrishna Mission Residential College, Narendrapur - (2016 - 2019)
+
   * BSc (Hons.) Statistics
-  CGPA: 8.88
 
-* Ramakrishna Mission Vidyalaya, Narendrapur – (2014 - 2016)
-  Grade: 88.8% in WBCHSE class XII-Science
+        CGPA: 8.88
+
+* Ramakrishna Mission Vidyalaya, Narendrapur - (2014 - 2016)
+
+    Grade: 88.8% in WBCHSE class XII-Science
