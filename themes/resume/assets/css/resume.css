@@ -16,10 +16,37 @@
 }
 
 /* reduce the top padding of the first section to avoid extra space */
-section:first-child {
+section:not(section section):first-child {
     padding-top: 50px;
   }
 
 section:not(section section):nth-of-type(odd) {
     background-color: #f6f7f6;
+}
+
+
+ul ::marker {
+    content: ">  ";
+    color: #043f83;
+}
+ul ul ::marker {
+    content: ">>  ";
+}
+
+li > p {
+    position: relative;
+    border-bottom: 1px solid #48b2;
+    cursor: default;
+    transition: color 0.4s;
+    margin-bottom: 7px;
+}
+
+
+h2 {
+    text-align: left;
+    color:#222; font-size:25px; font-weight:400;
+    /* text-transform: uppercase; */
+    word-spacing: 1px; letter-spacing:1px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }

@@ -23,10 +23,10 @@
 
 <%block name="content">
 <section id="home">
-    <div class="row align-items-stretch">
+    <div class="row align-items-stretch d-flex">
     <div class="col-md-2"></div>
     <div class="col-md-4 align-center">
-        <img src="assets/imgs/profile_img.jpg" alt="Profile picture" class="profile img-fluid rounded-circle mb-3">
+        <img src="assets/imgs/profile_img.jpg" alt="Profile picture" class="profile img-fluid rounded-circle ratio-1x1">
     </div>
     <div class="col-md-6 align-items-center">
     <div class="">
@@ -41,14 +41,13 @@
             <% continue %>
         % endif
         <section id="${post.meta('slug')}">
-        <div class="row">
+        <div class="row mx-md-20">
         <div class="col-md-2"></div>
         <div class="col-md-10">
-            <h2>${post.title()}</h2>
-            % if post.description():
-            <p>${post.description()}</p>
-            % endif
+            <h1 class="display-3">${post.title()}</h1>
+            <div class="ms-md-4">
             ${post.text()}
+            </div>
         </div>
         </div>
         </section>
