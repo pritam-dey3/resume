@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pritam Dey (Posts about Section)</title><link>https://pritam-dey3.github.io/resume/</link><description></description><atom:link href="https://pritam-dey3.github.io/resume/categories/cat_section.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2023 &lt;a href="mailto:pritam.pritamdey.984@gmail.com"&gt;Pritam Dey&lt;/a&gt; </copyright><lastBuildDate>Fri, 07 Apr 2023 12:51:47 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Extra-Curricular Activities</title><link>https://pritam-dey3.github.io/resume/posts/extra-curricular-activities.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;ul class="simple"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pritam Dey (Posts about Section)</title><link>https://pritam-dey3.github.io/resume/</link><description></description><atom:link href="https://pritam-dey3.github.io/resume/categories/cat_section.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2023 &lt;a href="mailto:pritam.pritamdey.984@gmail.com"&gt;Pritam Dey&lt;/a&gt; </copyright><lastBuildDate>Fri, 07 Apr 2023 21:43:25 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Extra-Curricular Activities</title><link>https://pritam-dey3.github.io/resume/posts/extra-curricular-activities.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;ul class="simple"&gt;
 &lt;li&gt;&lt;p&gt;Music - Playing guitar, Tabla, Keyboard, Mouth organ, Composing music&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Creative Involvement - Actively participated in Inter Bhavana Drama Competition in Ramakrishna Mission Residential College&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Sports - Badminton, Table tennis, Chess&lt;/p&gt;&lt;/li&gt;
@@ -29,8 +29,8 @@
 &lt;p&gt;Grade: 88.8% in WBCHSE class XII-Science&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</description><guid>https://pritam-dey3.github.io/resume/posts/education-and-qualifications.html</guid><pubDate>Wed, 05 Apr 2023 04:18:00 GMT</pubDate></item><item><title>Projects</title><link>https://pritam-dey3.github.io/resume/posts/projects.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;section id="autoamtic-team-detection-for-any-bundesliga-football-match-march-april-2022"&gt;
-&lt;h2&gt;Autoamtic team detection for any Bundesliga football match (March - April 2022)&lt;/h2&gt;
+&lt;/ul&gt;</description><guid>https://pritam-dey3.github.io/resume/posts/education-and-qualifications.html</guid><pubDate>Wed, 05 Apr 2023 04:18:00 GMT</pubDate></item><item><title>Projects</title><link>https://pritam-dey3.github.io/resume/posts/projects.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;section id="automatic-team-detection-for-any-bundesliga-football-match-march-april-2022"&gt;
+&lt;h2&gt;Automatic team detection for any Bundesliga football match (March - April 2022)&lt;/h2&gt;
 &lt;p&gt;Key points: Use YoloV7 for human, ball detection. Apply a sequence of classical computer vision + ML methods to detect specific jersey colors. I was able to overcome some critical challenges such as video feeds containing different lighting conditions (day / night), different colors of grass and jerseys of referees.&lt;/p&gt;
 &lt;p&gt;GitHub: &lt;a class="reference external" href="https://github.com/pritam-dey3/VisionDuo"&gt;https://github.com/pritam-dey3/VisionDuo&lt;/a&gt;&lt;/p&gt;
 &lt;/section&gt;
@@ -74,6 +74,7 @@
 &lt;li&gt;&lt;p&gt;Deep learning (NLP / NLG, Computer Vision)&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Programming languages: Python, R, MATLAB, C, C++&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Libraries/Frameworks: Tensorflow, Pytorch&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Reinforcement Learning&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Visualization: Plotly, Matplotlib etc.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Dashboarding: Streamlit, Gradio&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Database Management: SQL&lt;/p&gt;&lt;/li&gt;
@@ -97,6 +98,7 @@
 &lt;li&gt;&lt;p&gt;Smart Scheduler: Optimizing visit plan for medical representatives.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Brand Gini: Recommendation system of brands that should be shown to the doctors based on their interest / speciality.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;RCA: Root Cause Analysis of poor performance of Head Quarters&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Visual-Aid Analysis: Analyse Visual Aids shown to the doctors based on their colour balance, abundance of text / images, location of objects to measure how much visually appealing the slides are.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These experiences have provided me with valuable insights into the workings of the industry and helped me develop my skills as a data scientist.&lt;/p&gt;
 &lt;/section&gt;</description><guid>https://pritam-dey3.github.io/resume/posts/experience.html</guid><pubDate>Sun, 02 Apr 2023 06:23:00 GMT</pubDate></item><item><title>Completed Courses</title><link>https://pritam-dey3.github.io/resume/posts/completed-courses.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;p&gt;Throughout my academic and professional journey, I have completed several courses to enhance my knowledge and skills. Some of the courses that I have completed are:&lt;/p&gt;

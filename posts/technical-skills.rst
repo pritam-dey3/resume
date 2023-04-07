@@ -14,6 +14,7 @@
 * Deep learning (NLP / NLG, Computer Vision)
 * Programming languages: Python, R, MATLAB, C, C++
 * Libraries/Frameworks: Tensorflow, Pytorch
+* Reinforcement Learning
 * Visualization: Plotly, Matplotlib etc.
 * Dashboarding: Streamlit, Gradio
 * Database Management: SQL
