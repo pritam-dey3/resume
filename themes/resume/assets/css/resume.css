@@ -10,10 +10,19 @@
     border: 1px solid #000000;
 }
 
-#sections, .list-group-item, .list-group-item:focus, .list-group-item:hover {
+#sections, .list-group-item, .list-group-item:focus {
     background-color: #efe3ca;
     border-radius: 0;
   }
+
+ .list-group-item:hover{
+   background-color: #D7C0AE;
+ }
+
+.list-group-item{
+  border-color: transparent;
+  border-bottom-color: #d7c0ae;
+}
 
 /* reduce the top padding of the first section to avoid extra space */
 /* section:not(section section):first-child {

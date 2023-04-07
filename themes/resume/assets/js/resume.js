@@ -1,39 +1,24 @@
 const Sections = document.querySelector('#sections');
 const Body = document.querySelector('body');
 const Nav = document.querySelector('nav');
+const NavItems = document.querySelector('#navbarNav');
 
 Body.style.paddingTop = Nav.getBoundingClientRect().height + 'px';
-Sections.style.paddingTop = Nav.getBoundingClientRect().height + 'px';
+Sections.style.marginTop = Nav.getBoundingClientRect().height + 'px';
 
-// Check if viewport is md or wider
-const mediaQuery = window.matchMedia('(min-width: 768px)');
-
-// Add or remove 'show' class based on media query
-function handleMediaQuery() {
-    if (mediaQuery.matches) {
-        Sections.classList.add('show');
-    } else {
-        Sections.classList.remove('show');
+const observer = new MutationObserver(function(mutationsList, observer) {
+  // Iterate through the mutations list
+  for (let mutation of mutationsList) {
+    // Check if the mutation is a class attribute mutation on myDiv
+    if (mutation.type === 'attributes' && mutation.target === NavItems && mutation.attributeName === 'class') {
+      // Check if the show class has been added to myDiv
+      if (NavItems.classList.contains('show') && !mutation.oldValue.includes('show')) {
+        console.log('The "show" class has been added to the div!');
+        Sections.style.marginTop = Nav.getBoundingClientRect().height + 'px';
+      }
     }
-}
+  }
+});
 
-
-// sections padding
-
-
-function addPaddingToSections() {
-    if (window.innerWidth < 768) {
-        const NavHeight = Nav.getMaxHeight;
-        Sections.style.paddingTop = NavHeight + "px";
-    } else {
-        Sections.style.paddingTop = '0';
-    }
-}
-
-// Run on window resize
-// window.addEventListener('resize', handleMediaQuery);
-// window.addEventListener('resize', addPaddingToSections);
-
-// // Call the functions on page load to set initial padding
-// handleMediaQuery();
-// addPaddingToSections();
+// Configure the observer to watch for changes to the class attribute of myDiv
+observer.observe(NavItems, { attributes: true, attributeOldValue: true, attributeFilter: ['class'] });
