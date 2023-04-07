@@ -3,17 +3,17 @@
     height: 300px;
 }
 
-#sections, .list-group-item, .list-group-item:focus, .list-group-item:hover {
-    background-color: #efe3ca;
-    border-radius: 0;
-  }
-
 .navbar, .navbar * {
     background-color: #ffffff;
 }
 .navbar {
     border: 1px solid #000000;
 }
+
+#sections, .list-group-item, .list-group-item:focus, .list-group-item:hover {
+    background-color: #efe3ca;
+    border-radius: 0;
+  }
 
 /* reduce the top padding of the first section to avoid extra space */
 /* section:not(section section):first-child {

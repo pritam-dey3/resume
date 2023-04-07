@@ -16,7 +16,7 @@
     % if post.meta('category') != 'Section':
         <% continue %>
     % endif
-        <a class="list-group-item list-group-item-action" href="#${post.meta('slug')}">${post.title()}</a>
+        <a class="list-group-item list-group-item-action" href="#${post.meta('slug')}" data-bs-toggle="collapse" data-bs-target="#navbarNav">${post.title()}</a>
 % endfor
 </%block>
 
