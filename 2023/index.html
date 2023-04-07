@@ -14,26 +14,29 @@
 <!--[if lt IE 9]><script src="../assets/js/html5.js"></script><![endif]--><!-- Bootstrap CSS -->
 </head>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top flex-column"><div class="container">
+
+<div class="container-fluid">
+<div class="row position-relative">
+  <nav class="navbar navbar-expand-lg fixed-top flex-column"><div class="container">
       <a class="navbar-brand" href="#home">Pritam Dey</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-controls="navbarNav sections" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse multi-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="col-md-2 position-fixed start-0 top-0 px-0 vh-100 overflow-auto" id="sections">
+              <ul id="sections-list" class="list-group"></ul>
+</div>
         <ul class="navbar-nav ms-auto">
 <li class="nav-item">
-        <a class="nav-link" href="#cv">CV</a>
-        </li>
-
+            <a class="nav-link" href="#cv" data-bs-toggle="collapse" data-bs-target="#navbarNav">CV</a>
+            </li>
         </ul>
 </div>
     </div>
-  </nav><div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 position-fixed collapse multi-collapse px-0 vh-100 overflow-auto" id="sections">
-        <ul id="sections-list" class="list-group"></ul>
+  </nav>
 </div>
-  </div>
+<div class="row position-relative">
+
   <div data-bs-spy="scroll" data-bs-target="#sections-list" data-bs-smooth-scroll="true" data-bs-root-margin="0px -20% -20%" tabindex="0">
   
 <article class="listpage"><header><h1>Posts for year 2023</h1>
@@ -78,5 +81,6 @@
     // moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates -->
+</div>
 </body>
 </html>
