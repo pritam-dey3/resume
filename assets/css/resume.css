@@ -25,15 +25,15 @@ section:not(section section):nth-of-type(odd) {
 }
 
 
-ul ::marker {
+section ul ::marker {
     content: ">  ";
     color: #043f83;
 }
-ul ul ::marker {
+section ul ul ::marker {
     content: ">>  ";
 }
 
-li > p {
+section li > p {
     position: relative;
     border-bottom: 1px solid #48b2;
     cursor: default;
@@ -41,8 +41,18 @@ li > p {
     margin-bottom: 7px;
 }
 
+.list-group-item-action.active{
+    background-color: #77a753;
+    border-color: #77a753;
+}
 
-h2 {
+.list-group-item-action:hover{
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+section h2 {
     text-align: left;
     color:#222; font-size:25px; font-weight:400;
     /* text-transform: uppercase; */
