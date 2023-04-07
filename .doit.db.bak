@@ -76,7 +76,7 @@
 'render_posts:cache\\posts\\hobbies.html', (235008, 354)
 'copy_assets:output\\assets\\imgs\\profile_img.jpg', (251392, 303)
 'copy_assets:output\\assets\\css\\resume.css', (251904, 288)
-'sitemap:output\\sitemap.xml', (252416, 2489)
+'sitemap:output\\sitemap.xml', (252416, 2487)
 'render_taxonomies:output\\archive.html', (254976, 1903)
 'render_listings:output\\listings\\index.html', (257024, 1494)
 'render_taxonomies:output\\2023\\index.html', (258560, 4783)
