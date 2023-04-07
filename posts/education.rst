@@ -22,4 +22,4 @@
 
 * Ramakrishna Mission Vidyalaya, Narendrapur - (2014 - 2016)
 
-    Grade: 88.8% in WBCHSE class XII-Science
+      Grade: 88.8% in WBCHSE class XII-Science

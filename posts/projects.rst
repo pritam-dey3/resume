@@ -8,6 +8,12 @@
 .. rank: 5
 
 
+Autoamtic team detection for any Bundesliga football match (March - April 2022)
+-------------------------------------------------------------------------------
+
+Key points: Use YoloV7 for human, ball detection. Apply a sequence of classical computer vision + ML methods to detect specific jersey colors. I was able to overcome some critical challenges such as video feeds containing different lighting conditions (day / night), different colors of grass and jerseys of referees.
+
+GitHub: https://github.com/pritam-dey3/VisionDuo
 
 Predicting survival chances of passengers in Titanic (March 2020)
 ---------------------------------------------------------------------
