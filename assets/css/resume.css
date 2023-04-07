@@ -3,8 +3,8 @@
     height: 300px;
 }
 
-.list-group-item, #sections {
-    background-color: #c5dcb3;
+#sections, .list-group-item, .list-group-item:focus, .list-group-item:hover {
+    background-color: #efe3ca;
     border-radius: 0;
   }
 
@@ -16,12 +16,17 @@
 }
 
 /* reduce the top padding of the first section to avoid extra space */
-section:not(section section):first-child {
+/* section:not(section section):first-child {
     padding-top: 50px;
-  }
+  } */
 
-section:not(section section):nth-of-type(odd) {
-    background-color: #f6f7f6;
+section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+section:not(section section):nth-of-type(even) {
+    background-color: #d6dbde;
 }
 
 
@@ -42,14 +47,15 @@ section li > p {
 }
 
 .list-group-item-action.active{
-    background-color: #77a753;
-    border-color: #77a753;
+    background-color: #967E76;
+    border-color: #967E76;
+    color: white;
 }
-
+/*
 .list-group-item-action:hover{
     background-color: #ffffff;
     color: #000000;
-}
+} */
 
 
 section h2 {
@@ -59,4 +65,8 @@ section h2 {
     word-spacing: 1px; letter-spacing:1px;
     text-decoration: underline;
     text-underline-offset: 4px;
+}
+
+.bi {
+    margin: 0px 10px 0px 10px;
 }
