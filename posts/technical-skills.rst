@@ -8,15 +8,14 @@
 .. rank: 2
 
 
-* Statistical Modelling
-* Inference
+* Statistical Modelling and Inference
 * Robust regression techniques
-* Machine learning
-* Deep learning (NLP, Computer Vision)
+* Machine Learning and AutoML.
+* Deep learning (NLP / NLG, Computer Vision)
 * Programming languages: Python, R, MATLAB, C, C++
 * Libraries/Frameworks: Tensorflow, Pytorch
-* Typesetting: LaTeX
-* Spreadsheets: Microsoft Excel
+* Visualization: Plotly, Matplotlib etc.
+* Dashboarding: Streamlit, Gradio
 * Database Management: SQL
 
 
@@ -25,6 +24,6 @@ Interests
 
 * Playing with data and extracting stories from real world datasets
 * Applying machine learning tools to solve problems
-* Deep neural networks
-* Natural Language Processing and Computer Vision related problems
-* Studying state of the art machine learning tools for data science
+* NLP / NLG: Using large language models to explain or create structured data from text.
+* Computer Vision related problems. object detection, image segmentation, classification etc.
+* Studying state of the art machine learning and deep learning tools for data science

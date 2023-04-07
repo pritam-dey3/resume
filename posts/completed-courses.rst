@@ -14,4 +14,3 @@ Throughout my academic and professional journey, I have completed several course
 - Complete SQL Bootcamp Course offered by Udemy
 - CS224n: Natural Language Processing with Deep Learning (open course) from Stanford University
 
-These courses have helped me gain a deeper understanding of various concepts and techniques in data science and machine learning. They have also allowed me to apply these concepts to real-world problems, thus enhancing my problem-solving skills.
