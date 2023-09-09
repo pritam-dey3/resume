@@ -1,0 +1,4 @@
+[submodule "files/chat"]
+	path = files/chat
+	url = https://github.com/pritam-dey3/chat.git
+	branch = gh-pages
