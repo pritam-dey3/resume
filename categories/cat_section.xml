@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pritam Dey (Posts about Section)</title><link>http://pritamdey.in/</link><description></description><atom:link href="http://pritamdey.in/categories/cat_section.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2023 &lt;a href="mailto:pritam.pritamdey.984@gmail.com"&gt;Pritam Dey&lt;/a&gt; </copyright><lastBuildDate>Sat, 09 Sep 2023 19:19:35 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Extra-Curricular Activities</title><link>http://pritamdey.in/posts/extra-curricular-activities.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;ul class="simple"&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pritam Dey (Posts about Section)</title><link>http://pritamdey.in/</link><description></description><atom:link href="http://pritamdey.in/categories/cat_section.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2023 &lt;a href="mailto:pritam.pritamdey.984@gmail.com"&gt;Pritam Dey&lt;/a&gt; </copyright><lastBuildDate>Sat, 09 Sep 2023 19:46:45 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Extra-Curricular Activities</title><link>http://pritamdey.in/posts/extra-curricular-activities.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;ul class="simple"&gt;
 &lt;li&gt;&lt;p&gt;Music - Playing guitar, Tabla, Keyboard, Mouth organ, Composing music&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Creative Involvement - Actively participated in Inter Bhavana Drama Competition in Ramakrishna Mission Residential College&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Sports - Badminton, Table tennis, Chess&lt;/p&gt;&lt;/li&gt;
@@ -89,8 +89,15 @@
 &lt;li&gt;&lt;p&gt;Studying state of the art machine learning and deep learning tools for data science&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/section&gt;</description><guid>http://pritamdey.in/posts/technical-skills.html</guid><pubDate>Wed, 05 Apr 2023 04:05:00 GMT</pubDate></item><item><title>Experience</title><link>http://pritamdey.in/posts/experience.html</link><dc:creator>Pritam Dey</dc:creator><description>&lt;p&gt;During my professional career, I have gained experience working on various projects. Some of my notable experiences are:&lt;/p&gt;
-&lt;section id="data-scientist-at-dr-reddy-s-laboratory-aug-2021"&gt;
-&lt;h2&gt;Data Scientist at Dr. Reddy's Laboratory (Aug-2021)&lt;/h2&gt;
+&lt;section id="data-scientist-at-syngenta-seeds-june-2023"&gt;
+&lt;h2&gt;Data Scientist at Syngenta Seeds (June-2023)&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;p&gt;Diversity Analysis: Built a clustering algorithm along with relevant visualizations with the genotyoe data of a large sample of corn lines.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Phenomics Computer Vision: Detecting plant diseases with images captured from drones, rovers etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/section&gt;
+&lt;section id="data-scientist-at-dr-reddy-s-laboratory-aug-2021-may-2023"&gt;
+&lt;h2&gt;Data Scientist at Dr. Reddy's Laboratory (Aug-2021 - May-2023)&lt;/h2&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;&lt;p&gt;Google Of Investigations: Building a search engine from scratch that relates to various incident investigations in the company.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Stability Failure Prediction: Predicting whether a product will fail in a particular test based on few past timepoints (3-5) and historical data.&lt;/p&gt;&lt;/li&gt;

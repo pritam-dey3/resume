@@ -9,8 +9,13 @@
 
 During my professional career, I have gained experience working on various projects. Some of my notable experiences are:
 
-Data Scientist at Dr. Reddy's Laboratory (Aug-2021)
-===================================================
+Data Scientist at Syngenta Seeds (June-2023)
+============================================
+- Diversity Analysis: Built a clustering algorithm along with relevant visualizations with the genotyoe data of a large sample of corn lines.
+- Phenomics Computer Vision: Detecting plant diseases with images captured from drones, rovers etc.
+
+Data Scientist at Dr. Reddy's Laboratory (Aug-2021 - May-2023)
+==============================================================
 
 - Google Of Investigations: Building a search engine from scratch that relates to various incident investigations in the company.
 - Stability Failure Prediction: Predicting whether a product will fail in a particular test based on few past timepoints (3-5) and historical data.
