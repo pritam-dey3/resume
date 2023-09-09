@@ -1,4 +1,4 @@
-Sitemap: https://pritam-dey3.github.io/resume/sitemapindex.xml
+Sitemap: http://pritamdey.in/sitemapindex.xml
 
 User-Agent: *
-Host: pritam-dey3.github.io
+Host: pritamdey.in
