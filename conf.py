@@ -20,7 +20,7 @@ BLOG_AUTHOR = "Pritam Dey"  # (translatable)
 BLOG_TITLE = "Pritam Dey"  # (translatable)
 # This is the main URL for your site. It will be used
 # in a prominent link. Don't forget the protocol (http/https)!
-SITE_URL = "https://pritam-dey3.github.io/resume/"
+SITE_URL = "http://pritamdey.in/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "resume/"
