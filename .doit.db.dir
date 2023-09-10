@@ -42,7 +42,7 @@
 '_scan_locs:sitemap', (132608, 1129)
 'redirect', (38912, 56)
 'create_bundles:output\\assets\\js\\all.js', (39424, 272)
-'sitemap:output\\sitemapindex.xml', (40960, 256)
+'sitemap:output\\sitemapindex.xml', (40960, 257)
 'copy_assets:output\\assets\\js\\baguetteBox.min.js', (395264, 621)
 'copy_assets:output\\assets\\css\\ipython.min.css', (343552, 619)
 'render_pages:output\\posts\\test-post.html', (48640, 3415)
@@ -147,3 +147,4 @@
 'copy_files:output\\chat\\.git', (425472, 242)
 'copy_files:output\\chat\\assets\\index-07731c62.js', (425984, 287)
 'copy_files:output\\chat\\assets\\index-fb1347b0.js', (426496, 288)
+'copy_files:output\\chat\\assets\\index-ed16d136.js', (427008, 288)
