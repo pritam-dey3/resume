@@ -1,4 +1,0 @@
-Sitemap: http://pritamdey.in/sitemapindex.xml
-
-User-Agent: *
-Host: pritamdey.in
