@@ -1,2 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+section h2 {
+  @apply lg:text-7xl md:text-6xl text-5xl ;
+}
