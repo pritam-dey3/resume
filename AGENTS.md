@@ -21,3 +21,5 @@
 ## Project Context
 #### Use `bun`
 - The project uses `bun` as the package manager and runtime.
+#### about-me-data
+This folder contains all the static data required for this project. You MUST NOT EDIT any files in this folder.
