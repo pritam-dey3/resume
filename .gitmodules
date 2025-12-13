@@ -1,0 +1,3 @@
+[submodule "about-me-data"]
+	path = about-me-data
+	url = https://github.com/pritam-dey3/about-me-data.git

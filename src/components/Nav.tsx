@@ -51,8 +51,7 @@ const Nav = () => {
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost text-xl">
             <div className="flex items-center gap-2 group">
-              <span className="group-has-[.active-section]:hidden">Resume</span>
-              <ScrollSpy activeClass="active-section !block">
+              <ScrollSpy activeClass="!block">
                 {sections.map((section) => (
                   <a
                     key={section.id}
