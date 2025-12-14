@@ -4,3 +4,9 @@
 section h2 {
   @apply lg:text-7xl md:text-6xl text-5xl ;
 }
+
+@layer base {
+  :root {
+    --timeline-col-start: 30%;
+  }
+}

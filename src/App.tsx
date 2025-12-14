@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
      <Nav />
-     <div id="main" className="mx-auto p-4 space-y-12">
+     <div id="main" className="mx-auto p-4 space-y-12 max-w-339">
       <AboutMe data={personalData} />
       <Experience data={experienceData} />
       <Projects data={projectsData} />
