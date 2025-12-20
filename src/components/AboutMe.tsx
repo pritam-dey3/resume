@@ -29,10 +29,10 @@ const AboutMe = ({ data }: AboutMeProps) => {
   const { Email } = personal_information["Contact information"];
 
   return (
-    <section id="about-me" className="hero p-8 md:p-12">
-      <div className="grid-background"></div>
-      <h2 className="hidden">About Me</h2>
-      <div className="hero-content flex-col lg:flex-row gap-12 items-center lg:items-center">
+    <section id="about-me" className="hero p-4 md:p-12">
+      <div className="grid-bg"></div>
+      <h2 className="hidden!">About Me</h2>
+      <div className="hero-content flex-col lg:flex-row gap-12 items-center">
         <div className="avatar shrink-0">
           <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full shadow-2xl overflow-hidden">
             <img
@@ -45,13 +45,13 @@ const AboutMe = ({ data }: AboutMeProps) => {
 
         <div className="flex flex-col gap-6 text-center lg:text-left">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-4xl leading-tight font-semibold">
               Hi, I'm{" "}
-              <span className="text-primary">{personal_information.Name}</span>
+              <span className="text-neutral font-pacifico font-light text-5xl whitespace-nowrap md:ml-2">{personal_information.Name}</span>
             </h1>
           </div>
 
-          <p className="text-lg md:text-xl leading-relaxed opacity-90">
+          <p className="text-lg md:text-xl leading-relaxed text-center lg:text-start">
             {description}
           </p>
 
@@ -60,7 +60,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={LinkedIn}
               target="_blank"
               rel="noopener noreferrer"
-              className="border rounded-full p-2 hover:bg-accent/12"
+              className="border rounded-full p-2 hover:bg-accent/15"
               aria-label="LinkedIn"
             >
               <LinkedinLogoIcon size={32} />
@@ -69,14 +69,14 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={GitHub}
               target="_blank"
               rel="noopener noreferrer"
-              className="border rounded-full p-2 hover:bg-accent/10"
+              className="border rounded-full p-2 hover:bg-accent/15"
               aria-label="GitHub"
             >
               <GithubLogoIcon size={32} />
             </a>
             <a
               href={`mailto:${Email}`}
-              className="border rounded-full p-2 hover:bg-accent/10"
+              className="border rounded-full p-2 hover:bg-accent/15"
               aria-label="Email"
             >
               <AtIcon size={32} />

@@ -29,6 +29,7 @@ const Nav = () => {
           }
         }
       });
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSections(newSections);
     }
   }, []);
@@ -46,10 +47,10 @@ const Nav = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm sticky top-0 z-2">
-      <div className="flex-1">
+    <div className="w-full flex flex-row bg-base-100 shadow-sm sticky top-0 z-2 px-5 py-2 justify-center">
+      <div className="flex-1 max-w-339">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost text-xl">
+          <div tabIndex={0} role="button" className="text-xl">
             <div className="flex items-center gap-2 group">
               <ScrollSpy activeClass="!block">
                 {sections.map((section) => (
@@ -66,7 +67,10 @@ const Nav = () => {
               <CaretDownIcon size={16} />
             </div>
           </div>
-          <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow">
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-base-100 rounded-box w-52 shadow"
+          >
             <ScrollSpy activeClass="active">
               {sections.map((section) => (
                 <li key={section.id}>
@@ -78,17 +82,23 @@ const Nav = () => {
         </div>
       </div>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1 items-center">
-          <li><a>Blog</a></li>
+        <ul className="flex flex-row gap-4 px-1 items-center p-0!">
+          {/* <li>
+            Blogs
+          </li> */}
           <li>
-            <button className="btn btn-ghost btn-circle" onClick={toggleTheme}>
-              {theme === "dark" ? <SunIcon size={24} /> : <MoonIcon size={24} />}
-            </button>
+            <span className="" onClick={toggleTheme}>
+              {theme === "dark" ? (
+                <SunIcon size={24} />
+              ) : (
+                <MoonIcon size={24} />
+              )}
+            </span>
           </li>
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
 export default Nav

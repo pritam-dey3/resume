@@ -66,11 +66,11 @@ const Projects = ({ data: projects }: ProjectsProps) => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto">
         {filteredProjects.map((project) => (
-          <div key={project.project_id} className="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <div key={project.project_id} className="card bg-base-200 shadow-lg hover:shadow-2xl transition-shadow duration-300 m-2 rounded-lg card-corner-borders">
             <div className="card-body">
-              <h3 className="card-title text-secondary">{project.project_name}</h3>
+              <h2 className="card-title text-secondary">{project.project_name}</h2>
               <p>{project.description}</p>
               <div className="flex flex-wrap gap-2 mt-2">
                 {project.tags.map(tag => (
