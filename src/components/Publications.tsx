@@ -1,4 +1,4 @@
-import type { Publication } from '../../about-me-data/dataTypes';
+import type { Publication } from "../../about-me-data/dataTypes";
 
 interface PublicationsProps {
   data: Publication;
@@ -11,9 +11,16 @@ const Publications = ({ data }: PublicationsProps) => {
       <div className="p-4">
         <ul className="list-disc list-inside">
           <li>
-              {data.description} - 
-              <a href={data.link} target="_blank" rel="noopener noreferrer" className="link link-hover font-medium"> (Journal)
-              </a>
+            {data.description} -
+            <a
+              href={data.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="link link-hover font-medium"
+            >
+              {" "}
+              (Journal)
+            </a>
           </li>
         </ul>
       </div>
