@@ -15,7 +15,7 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "light";
+  name: "mylight";
   default: false;
   prefersdark: false;
   --thm-col-base: #FBF8F3;
@@ -55,8 +55,8 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "dark";
-  default: true;
+  name: "mydark";
+  default: false;
   prefersdark: true;
   --thm-col-base: #1d232a;
   --thm-col-primary: rgb(85 224 255);

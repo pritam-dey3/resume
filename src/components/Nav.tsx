@@ -24,9 +24,9 @@ const Nav = ({ smoother }: { smoother: React.RefObject<ScrollSmoother | null> })
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
     ) {
-      return "dark";
+      return "mydark";
     }
-    return "light";
+    return "mylight";
   });
 
   const [sections, setSections] = useState<{ id: string; label: string }[]>([]);
@@ -56,7 +56,7 @@ const Nav = ({ smoother }: { smoother: React.RefObject<ScrollSmoother | null> })
 
   const toggleTheme = () => {
     setTheme((prev) => {
-      const newTheme = prev === "dark" ? "light" : "dark";
+      const newTheme = prev === "mydark" ? "mylight" : "mydark";
       localStorage.setItem("theme", newTheme);
       return newTheme;
     });
@@ -142,7 +142,7 @@ const Nav = ({ smoother }: { smoother: React.RefObject<ScrollSmoother | null> })
           </li> */}
           <li>
             <span className="" onClick={toggleTheme}>
-              {theme === "dark" ? (
+              {theme === "mydark" ? (
                 <SunIcon size={24} />
               ) : (
                 <MoonIcon size={24} />
