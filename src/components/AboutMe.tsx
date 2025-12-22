@@ -47,11 +47,11 @@ const AboutMe = ({ data }: AboutMeProps) => {
           <div>
             <h1 className="text-4xl md:text-4xl leading-tight font-semibold">
               Hi, I'm{" "}
-              <span className="text-neutral font-pacifico font-light text-5xl whitespace-nowrap md:ml-2">{personal_information.Name}</span>
+              <span className="text-neutral font-pacifico font-light text-5xl whitespace-nowrap md:ml-2 name">{personal_information.Name}</span>
             </h1>
           </div>
 
-          <p className="text-lg md:text-xl leading-relaxed text-center lg:text-start">
+          <p className="text-lg md:text-xl leading-relaxed text-center lg:text-start text-base-content/85">
             {description}
           </p>
 

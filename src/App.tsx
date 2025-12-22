@@ -11,13 +11,14 @@ import personalData from '../about-me-data/personal.json'
 import experienceData from '../about-me-data/experience.json'
 import projectsData from '../about-me-data/projects.json'
 import openSourceData from '../about-me-data/open-source.json'
+import { useRef } from 'react'
 
 function App() {
-
+  const mainContentRef = useRef(null);
   return (
-    <div>
+    <div id="root">
      <Nav />
-     <div id="main" className="mx-auto p-4 space-y-12 max-w-339">
+     <div ref={mainContentRef} id="main" className="mx-auto p-4 space-y-12 max-w-339">
       <AboutMe data={personalData} />
       <Experience data={experienceData} />
       <Projects data={projectsData} />

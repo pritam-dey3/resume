@@ -19,13 +19,13 @@ const Experience = ({ data }: ExperienceProps) => {
               <div className="text-base-content/70">{job.duration.start} - {job.duration.end}</div>
             </div>
             <div className="timeline-middle px-3">
-              <BriefcaseIcon size={24} className="text-accent" />
+              <BriefcaseIcon size={24} className="text-primary" />
             </div>
             <div className="timeline-end">
               <div className="py-3">
                 <ul className="list-disc pl-5 space-y-1">
                   {job.responsibilities.map((responsibility, idx) => (
-                    <li key={idx} className="text-base-content/80">{responsibility}</li>
+                    <li key={idx} className="text-base-content/85">{responsibility}</li>
                   ))}
                 </ul>
               </div>

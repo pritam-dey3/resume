@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react';
-import { CaretDownIcon, SunIcon, MoonIcon } from "@phosphor-icons/react";
-import ScrollSpy from 'react-scrollspy-navigation';
+import { useGSAP } from "@gsap/react";
+import { CaretDownIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
+import ScrollSpy from "react-scrollspy-navigation";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Nav = () => {
   const [theme, setTheme] = useState(() => {
@@ -8,22 +13,26 @@ const Nav = () => {
     if (savedTheme) {
       return savedTheme;
     }
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
       return "dark";
     }
     return "light";
   });
 
   const [sections, setSections] = useState<{ id: string; label: string }[]>([]);
+  const navRef = useRef(null);
 
   useEffect(() => {
-    const mainDiv = document.getElementById('main');
+    const mainDiv = document.getElementById("main");
     if (mainDiv) {
-      const sectionElements = mainDiv.querySelectorAll('section');
+      const sectionElements = mainDiv.querySelectorAll("section");
       const newSections: { id: string; label: string }[] = [];
       sectionElements.forEach((section) => {
         if (section.id) {
-          const h2 = section.querySelector('h2');
+          const h2 = section.querySelector("h2");
           if (h2) {
             newSections.push({ id: section.id, label: h2.innerText });
           }
@@ -39,15 +48,43 @@ const Nav = () => {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => {
+    setTheme((prev) => {
       const newTheme = prev === "dark" ? "light" : "dark";
       localStorage.setItem("theme", newTheme);
       return newTheme;
     });
   };
 
+  useGSAP(
+    () => {
+      gsap.set(".mynav", { y: -100, opacity: 0 });
+
+      const anim = gsap.to(".mynav", {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out",
+        paused: true,
+      });
+
+      ScrollTrigger.create({
+        trigger: ".avatar",
+        start: "57% top",
+        animation: anim,
+        toggleActions: "play none none reverse",
+        // onUpdate: (self) => {
+        //   console.log(self.progress);
+        // },
+      });
+    },
+    { scope: '#root' }
+  );
+
   return (
-    <div className="w-full flex flex-row bg-base-100 shadow-sm sticky top-0 z-2 px-5 py-2 justify-center">
+    <div
+      ref={navRef}
+      className="mynav w-full flex flex-row shadow-sm fixed top-0 z-20 px-5 py-2 justify-center bg-base-300/98"
+    >
       <div className="flex-1 max-w-339">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="text-xl">
@@ -99,6 +136,6 @@ const Nav = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Nav
+export default Nav;
