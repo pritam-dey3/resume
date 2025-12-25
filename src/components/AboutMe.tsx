@@ -1,4 +1,7 @@
-import profileImg from "../assets/profile.jpg";
+import profileImg from "../assets/profile.webp";
+import { useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import {
   LinkedinLogoIcon,
   GithubLogoIcon,
@@ -28,8 +31,65 @@ const AboutMe = ({ data }: AboutMeProps) => {
   const { LinkedIn, GitHub } = personal_information["Social media profiles"];
   const { Email } = personal_information["Contact information"];
 
+  const container = useRef(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+      tl.from(".avatar", {
+        opacity: 0,
+        scale: 0.5,
+        duration: 1,
+        delay: 0.5,
+      })
+        .from(
+          ".greeting",
+          {
+            opacity: 0,
+            x: -20,
+            duration: 0.8,
+          },
+          "-=0.5"
+        )
+        .from(
+          ".name",
+          {
+            opacity: 0,
+            x: 20,
+            duration: 0.8,
+          },
+          "-=0.6"
+        )
+        .from(
+          ".hero-content p",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+          },
+          "-=0.6"
+        )
+        .from(
+          ".social-link",
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.1,
+          },
+          "-=0.6"
+        );
+    },
+    { scope: container }
+  );
+
   return (
-    <section id="about-me" className="hero p-4 md:p-12 relative">
+    <section
+      id="about-me"
+      className="hero p-4 md:p-12 relative"
+      ref={container}
+    >
       <div className="grid-bg"></div>
       <h2 className="hidden!">About Me</h2>
       <div className="hero-content flex-col lg:flex-row gap-12 items-center">
@@ -46,7 +106,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
         <div className="flex flex-col gap-6 text-center lg:text-left">
           <div>
             <h1 className="text-4xl md:text-4xl leading-tight font-semibold">
-              Hi, I'm{" "}
+              <span className="greeting inline-block">Hi, I'm{" "}</span>
               <span className="text-neutral font-pacifico font-light text-5xl whitespace-nowrap md:ml-2 name">{personal_information.Name}</span>
             </h1>
           </div>
@@ -60,7 +120,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={LinkedIn}
               target="_blank"
               rel="noopener noreferrer"
-              className="border rounded-full p-2 hover:bg-accent/15"
+              className="social-link border rounded-full p-2 hover:bg-accent/15"
               aria-label="LinkedIn"
             >
               <LinkedinLogoIcon size={32} />
@@ -69,14 +129,14 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={GitHub}
               target="_blank"
               rel="noopener noreferrer"
-              className="border rounded-full p-2 hover:bg-accent/15"
+              className="social-link border rounded-full p-2 hover:bg-accent/15"
               aria-label="GitHub"
             >
               <GithubLogoIcon size={32} />
             </a>
             <a
               href={`mailto:${Email}`}
-              className="border rounded-full p-2 hover:bg-accent/15"
+              className="social-link border rounded-full p-2 hover:bg-accent/15"
               aria-label="Email"
             >
               <AtIcon size={32} />

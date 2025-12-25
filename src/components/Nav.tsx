@@ -14,21 +14,15 @@ import {
 
 // gsap.registerPlugin(ScrollTrigger);
 
-const Nav = ({ smoother }: { smoother: React.RefObject<ScrollSmoother | null> }) => {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      return savedTheme;
-    }
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      return "mydark";
-    }
-    return "mylight";
-  });
-
+const Nav = ({
+  smoother,
+  theme,
+  toggleTheme,
+}: {
+  smoother: React.RefObject<ScrollSmoother | null>;
+  theme: string;
+  toggleTheme: () => void;
+}) => {
   const [sections, setSections] = useState<{ id: string; label: string }[]>([]);
   const navRef = useRef(null);
 
@@ -49,18 +43,6 @@ const Nav = ({ smoother }: { smoother: React.RefObject<ScrollSmoother | null> })
       setSections(newSections);
     }
   }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === "mydark" ? "mylight" : "mydark";
-      localStorage.setItem("theme", newTheme);
-      return newTheme;
-    });
-  };
 
   useGSAP(
     () => {

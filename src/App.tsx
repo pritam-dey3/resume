@@ -10,7 +10,7 @@ import Publications from "./components/Publications";
 import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import experienceData from "../about-me-data/experience.json";
 import openSourceData from "../about-me-data/open-source.json";
 import personalData from "../about-me-data/personal.json";
@@ -20,9 +20,48 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const smoother = useRef<ScrollSmoother | null>(null);
+
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      return savedTheme;
+    }
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return "mydark";
+    }
+    return "mylight";
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const newTheme = prev === "mydark" ? "mylight" : "mydark";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  };
+
+  useEffect(() => {
+    const handleLoad = () => setIsLoading(false);
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => window.removeEventListener("load", handleLoad);
+    }
+  }, []);
+
   useGSAP(
     () => {
+      if (isLoading) return;
       smoother.current = ScrollSmoother.create({
         wrapper: "#root",
         content: "#content",
@@ -51,13 +90,39 @@ function App() {
         );
       });
     },
-    { scope: "#root" }
+    { scope: "#root", dependencies: [isLoading] }
   );
 
   const mainContentRef = useRef(null);
+
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen loader-container">
+        <div className="loader">
+          <span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <div className="base">
+              <span></span>
+              <div className="face"></div>
+            </div>
+        </div>
+        <div className="longfazers">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div id="root">
-      <Nav smoother={smoother} />
+      <Nav smoother={smoother} theme={theme} toggleTheme={toggleTheme} />
       <div id="content">
         <div
           ref={mainContentRef}
