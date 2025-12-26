@@ -2,20 +2,22 @@ import "./App.css";
 import AboutMe from "./components/AboutMe";
 import Experience from "./components/Experience";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
 import Nav from "./components/Nav";
 import OpenSource from "./components/OpenSource";
 import Projects from "./components/Projects";
 import Publications from "./components/Publications";
+import Chatbot from "./components/Chatbot";
 
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import experienceData from "../about-me-data/experience.json";
 import openSourceData from "../about-me-data/open-source.json";
 import personalData from "../about-me-data/personal.json";
 import projectsData from "../about-me-data/projects.json";
-import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -96,28 +98,7 @@ function App() {
   const mainContentRef = useRef(null);
 
   if (isLoading) {
-    return (
-      <div className="w-screen h-screen loader-container">
-        <div className="loader">
-          <span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
-          <div className="base">
-              <span></span>
-              <div className="face"></div>
-            </div>
-        </div>
-        <div className="longfazers">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (
@@ -137,6 +118,7 @@ function App() {
         </div>
         <Footer />
       </div>
+      <Chatbot />
     </div>
   );
 }
