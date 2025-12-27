@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&family=Poppins:wght@300;400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poiret+One&family=Poppins:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
 @import "tailwindcss";
 
@@ -9,29 +9,40 @@
 @plugin "daisyui";
 
 @theme {
-  --font-poiret: 'Poiret One', sans-serif;
-  --font-poppins: 'Poppins', sans-serif;
-  --font-pacifico: 'Pacifico', cursive;
+  --font-poiret: "Poiret One", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-pacifico: "Pacifico", cursive;
 }
 
 @plugin "daisyui/theme" {
   name: "mylight";
   default: false;
   prefersdark: false;
-  --thm-col-base: #FBF8F3;
+  --thm-col-base: #fbf8f3;
   --thm-col-primary: rgb(165 106 5);
-  --thm-col-secondary: oklch(from var(--thm-col-primary) l calc(c + 0.03) calc(h + 90));
-  --thm-col-accent: #F06C7E;
+  --thm-col-secondary: oklch(
+    from var(--thm-col-primary) l calc(c + 0.03) calc(h + 90)
+  );
+  --thm-col-accent: #f06c7e;
   --thm-col-neutral: rgb(63 122 250);
   color-scheme: "light";
   --color-base-100: var(--thm-col-base);
-  --color-base-200: oklch(from var(--thm-col-base) calc(l - 0.02) calc(c + 0.02) h);
-  --color-base-300: oklch(from var(--thm-col-base) calc(l - 0.07) calc(c + 0.04) h);
-  --color-base-content: oklch(from var(--thm-col-base) calc(1 - l) calc(c + 0.02) h);
+  --color-base-200: oklch(
+    from var(--thm-col-base) calc(l - 0.02) calc(c + 0.02) h
+  );
+  --color-base-300: oklch(
+    from var(--thm-col-base) calc(l - 0.07) calc(c + 0.04) h
+  );
+  --color-base-content: oklch(
+    from var(--thm-col-base) calc(1 - l) calc(c + 0.02) h
+  );
   --color-primary: var(--thm-col-primary);
-  --color-primary-content: oklch(from var(--thm-col-primary) calc(1 - l) calc(c + 0.02) h);
+  --color-primary-content: white;
+
   --color-secondary: var(--thm-col-secondary);
-  --color-secondary-content: oklch(from var(--thm-col-secondary) calc(1 - l) c h);
+  --color-secondary-content: oklch(
+    from var(--thm-col-secondary) calc(1 - l) c h
+  );
   --color-accent: var(--thm-col-accent);
   --color-accent-content: oklch(from var(--thm-col-accent) calc(1 - l) c h);
   --color-neutral: var(--thm-col-neutral);
@@ -60,18 +71,27 @@
   prefersdark: true;
   --thm-col-base: #1d232a;
   --thm-col-primary: rgb(85 224 255);
-  --thm-col-secondary: oklch(from var(--thm-col-primary) l calc(c + 0.03) calc(h + 90));
-  --thm-col-accent: #FF6E81;
+  --thm-col-secondary: oklch(
+    from var(--thm-col-primary) l calc(c + 0.03) calc(h + 90)
+  );
+  --thm-col-accent: #ff6e81;
   --thm-col-neutral: rgb(250 179 47);
   color-scheme: "dark";
   --color-base-100: var(--thm-col-base);
-  --color-base-200: oklch(from var(--thm-col-base) calc(l + 0.05) calc(c + 0.02) h);
-  --color-base-300: oklch(from var(--thm-col-base) calc(l - 0.2) calc(c + 0.04) h);
+  --color-base-200: oklch(
+    from var(--thm-col-base) calc(l + 0.05) calc(c + 0.02) h
+  );
+  --color-base-300: oklch(
+    from var(--thm-col-base) calc(l - 0.07) calc(c - 0.03) h
+  );
   --color-base-content: oklch(from var(--thm-col-base) 0.97 calc(c + 0.02) h);
   --color-primary: var(--thm-col-primary);
-  --color-primary-content: oklch(from var(--thm-col-primary) calc(1 - l) calc(c + 0.02) h);
+  --color-primary-content: color-contrast(var(--color-primary) vs white), black;
+
   --color-secondary: var(--thm-col-secondary);
-  --color-secondary-content: oklch(from var(--thm-col-secondary) calc(1 - l) calc(c + 0.02) h);
+  --color-secondary-content: oklch(
+    from var(--thm-col-secondary) calc(1 - l) calc(c + 0.02) h
+  );
   --color-accent: var(--thm-col-accent);
   --color-accent-content: oklch(from var(--thm-col-accent) calc(1 - l) c h);
   --color-neutral: var(--thm-col-neutral);
@@ -119,7 +139,11 @@ section > h2::after {
   bottom: 0;
   left: 0;
   z-index: 0;
-  background-image: linear-gradient(to right, var(--color-base-300) 1px, transparent 1px),
+  background-image: linear-gradient(
+      to right,
+      var(--color-base-300) 1px,
+      transparent 1px
+    ),
     linear-gradient(to bottom, var(--color-base-300) 1px, transparent 1px);
   background-size: 50px 50px;
   -webkit-mask-image: radial-gradient(
@@ -161,10 +185,6 @@ section > h2::after {
   border-right: 2px solid var(--color-primary);
   border-radius: 0 0 var(--radius-lg) 0;
 }
-
-
-
-
 
 /* .name {
   border-bottom: 2px solid var(--color-accent);
