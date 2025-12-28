@@ -7,8 +7,20 @@ import {
   ChatTextIcon,
 } from "@phosphor-icons/react";
 import { cn } from "../lib/utils";
+import Markdown from 'react-markdown'
 import "./Chatbot.css";
 
+type TextStream = {
+  type: "text";
+  delta: string;
+};
+type ToolCallStream = {
+  type: "tool_call";
+  tool_call: {
+    tool_name: string;
+    arguments: object;
+  };
+};
 type ChatMode = "minimized" | "chat" | "extended-chat";
 
 interface Message {
@@ -17,9 +29,62 @@ interface Message {
   text: string;
 }
 
-const respondToUser = async (message: string) => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-  return "I'm currently a static demo. I'll be connected to a real backend soon!";
+const respondToUser = async (
+  message: string,
+  sessionId: string,
+  handleResponseObj: (obj: TextStream | ToolCallStream) => void
+) => {
+  const chatUrl = import.meta.env.VITE_BACKEND_URL + "/chat";
+  console.log("Base URL", chatUrl);
+
+  const res = await fetch(chatUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/x-ndjson", // or text/event-stream
+    },
+    body: JSON.stringify({ user_query: message, session_id: sessionId }),
+  });
+
+  if (!res.ok || !res.body) {
+    throw new Error("Stream failed");
+  }
+
+  const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
+
+  let buffer = "";
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+
+      buffer += value;
+
+      while (true) {
+        const idx = buffer.indexOf("\n");
+        if (idx === -1) break;
+
+        const line = buffer.slice(0, idx).trim();
+        buffer = buffer.slice(idx + 1);
+
+        if (!line) continue;
+
+        try {
+          const obj = JSON.parse(line);
+          handleResponseObj(obj);
+        } catch (e) {
+          console.error("Error parsing JSON line:", e);
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error reading stream:", error);
+    throw error;
+  } finally {
+    reader.releaseLock();
+  }
+
+  return "Streaming finished";
 };
 
 const LoadingMessage = () => {
@@ -78,6 +143,8 @@ const Chatbot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const sessionId = useRef<string>(crypto.randomUUID());
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -101,6 +168,26 @@ const Chatbot: React.FC = () => {
     }
   }, [mode]);
 
+  const handleResponseObj = (obj: TextStream | ToolCallStream) => {
+    if (obj.type === "text") {
+      setMessages((prev) => {
+        const lastMsg = prev[prev.length - 1];
+        if (lastMsg.role === "ai") {
+          if (gettingResponse){
+            setGettingResponse(false);
+          }
+          return [
+            ...prev.slice(0, -1),
+            { ...lastMsg, text: lastMsg.text + obj.delta },
+          ];
+        }
+        return prev;
+      });
+    } else if (obj.type === "tool_call") {
+      console.log("Tool call", obj.tool_call);
+    }
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
     const newMessage: Message = {
@@ -117,14 +204,28 @@ const Chatbot: React.FC = () => {
 
     // get assistant response
     setGettingResponse(true);
-    const response = await respondToUser(inputValue);
-    setGettingResponse(false);
-    const newAiMessage: Message = {
-      id: (Date.now() + 1).toString(),
-      role: "ai",
-      text: response,
-    };
-    setMessages((prev) => [...prev, newAiMessage]);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: (Date.now() + 1).toString(),
+        role: "ai",
+        text: "",
+      },
+    ]);
+    try {
+      await respondToUser(inputValue, sessionId.current, handleResponseObj);
+    } catch (error) {
+      console.error("Failed to get response:", error);
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: "ai",
+        text: "Sorry, something went wrong. Please try again.",
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
+      setGettingResponse(false);
+      console.log("messages", messages);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -195,7 +296,7 @@ const Chatbot: React.FC = () => {
                       : "bg-base-300 text-base-content border border-primary/40 before:border-b before:border-primary/40"
                   )}
                 >
-                  {msg.text}
+                  <Markdown>{msg.text}</Markdown>
                 </div>
               </div>
             ))}
@@ -221,7 +322,7 @@ const Chatbot: React.FC = () => {
         <div className="flex flex-row gap-2 items-center">
           <HeadCircuitIcon size={30} className="text-primary" weight="fill" />
           {!gettingResponse ? (
-            <p className="overflow-y-auto max-h-24 flex-1">{lastAiMessage}</p>
+            <div className="overflow-y-auto max-h-24 flex-1"><Markdown>{lastAiMessage}</Markdown></div>
           ) : (
             <LoadingMessage />
           )}
