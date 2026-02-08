@@ -11,14 +11,15 @@ import Markdown from 'react-markdown'
 import "./Chatbot.css";
 
 type TextStream = {
-  type: "text";
+  type: "TextDelta";
   delta: string;
 };
 type ToolCallStream = {
-  type: "tool_call";
-  tool_call: {
-    tool_name: string;
+  type: "ToolCall";
+  tool: {
+    name: string;
     arguments: object;
+    tool_call_id: string;
   };
 };
 type ChatMode = "minimized" | "chat" | "extended-chat";
@@ -169,7 +170,7 @@ const Chatbot: React.FC = () => {
   }, [mode]);
 
   const handleResponseObj = (obj: TextStream | ToolCallStream) => {
-    if (obj.type === "text") {
+    if (obj.type === "TextDelta") {
       setMessages((prev) => {
         const lastMsg = prev[prev.length - 1];
         if (lastMsg.role === "ai") {
@@ -183,8 +184,8 @@ const Chatbot: React.FC = () => {
         }
         return prev;
       });
-    } else if (obj.type === "tool_call") {
-      console.log("Tool call", obj.tool_call);
+    } else if (obj.type === "ToolCall") {
+      console.log("Tool call", obj.tool);
     }
   };
 
