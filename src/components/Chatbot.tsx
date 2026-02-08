@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import {
   HeadCircuitIcon,
   XIcon,
@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import { cn } from "../lib/utils";
 import Markdown from 'react-markdown'
+import { fetchEventSource } from "@microsoft/fetch-event-source";
 import "./Chatbot.css";
 
 type TextStream = {
@@ -38,54 +39,24 @@ const respondToUser = async (
   const chatUrl = import.meta.env.VITE_BACKEND_URL + "/chat";
   console.log("Base URL", chatUrl);
 
-  const res = await fetch(chatUrl, {
+  await fetchEventSource(chatUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/x-ndjson", // or text/event-stream
+      Accept: "text/event-stream", // or text/event-stream
     },
     body: JSON.stringify({ user_query: message, session_id: sessionId }),
+    onmessage(ev) {
+      const data = JSON.parse(ev.data);
+      console.log(data);
+      handleResponseObj(data);
+    },
+    onerror(err) {
+      console.error(err);
+    }
   });
 
-  if (!res.ok || !res.body) {
-    throw new Error("Stream failed");
-  }
-
-  const reader = res.body.pipeThrough(new TextDecoderStream()).getReader();
-
-  let buffer = "";
-  try {
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-
-      buffer += value;
-
-      while (true) {
-        const idx = buffer.indexOf("\n");
-        if (idx === -1) break;
-
-        const line = buffer.slice(0, idx).trim();
-        buffer = buffer.slice(idx + 1);
-
-        if (!line) continue;
-
-        try {
-          const obj = JSON.parse(line);
-          handleResponseObj(obj);
-        } catch (e) {
-          console.error("Error parsing JSON line:", e);
-        }
-      }
-    }
-  } catch (error) {
-    console.error("Error reading stream:", error);
-    throw error;
-  } finally {
-    reader.releaseLock();
-  }
-
-  return "Streaming finished";
+  console.log("function returned");
 };
 
 const LoadingMessage = () => {
@@ -169,14 +140,12 @@ const Chatbot: React.FC = () => {
     }
   }, [mode]);
 
-  const handleResponseObj = (obj: TextStream | ToolCallStream) => {
+  const handleResponseObj = useCallback((obj: TextStream | ToolCallStream) => {
     if (obj.type === "TextDelta") {
       setMessages((prev) => {
         const lastMsg = prev[prev.length - 1];
         if (lastMsg.role === "ai") {
-          if (gettingResponse){
-            setGettingResponse(false);
-          }
+          setGettingResponse(false);
           return [
             ...prev.slice(0, -1),
             { ...lastMsg, text: lastMsg.text + obj.delta },
@@ -187,7 +156,7 @@ const Chatbot: React.FC = () => {
     } else if (obj.type === "ToolCall") {
       console.log("Tool call", obj.tool);
     }
-  };
+  }, []);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
