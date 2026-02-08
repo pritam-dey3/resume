@@ -296,7 +296,9 @@ const Chatbot: React.FC = () => {
                       : "bg-base-300 text-base-content border border-primary/40 before:border-b before:border-primary/40"
                   )}
                 >
-                  <Markdown>{msg.text}</Markdown>
+                  <div className="markdown">
+                    <Markdown>{msg.text}</Markdown>
+                  </div>
                 </div>
               </div>
             ))}
@@ -322,7 +324,11 @@ const Chatbot: React.FC = () => {
         <div className="flex flex-row gap-2 items-center">
           <HeadCircuitIcon size={30} className="text-primary" weight="fill" />
           {!gettingResponse ? (
-            <div className="overflow-y-auto max-h-24 flex-1"><Markdown>{lastAiMessage}</Markdown></div>
+            <div className="overflow-y-auto max-h-24 flex-1">
+              <div className="markdown">
+                <Markdown>{lastAiMessage}</Markdown>
+              </div>
+            </div>
           ) : (
             <LoadingMessage />
           )}

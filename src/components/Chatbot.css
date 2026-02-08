@@ -102,28 +102,28 @@
 }
 
 @import "tailwindcss";
-ul {
+.markdown ul {
     list-style-type: disc;
     margin-left: 20px;
 }
 
-ol {
+.markdown ol {
     list-style-type: decimal;
     margin-left: 20px;
 }
 
-h1 {
+.markdown h1 {
     @apply text-2xl font-bold;
 }
 
-h2 {
+.markdown h2 {
     @apply text-xl font-bold;
 }
 
-h3 {
+.markdown h3 {
     @apply text-lg font-bold;
 }
 
-strong {
+.markdown strong {
     @apply font-bold;
 }
