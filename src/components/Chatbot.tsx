@@ -10,25 +10,69 @@ import { cn } from "../lib/utils";
 import Markdown from 'react-markdown'
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import "./Chatbot.css";
+import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 type TextStream = {
   type: "TextDelta";
   delta: string;
 };
+
+// Tool types
+type SearchProject = {
+  name: "search_projects";
+  arguments: {
+    query: string;
+  };
+  tool_call_id: string;
+};
+
+type ShowExperience = {
+  name: "show_experience";
+  arguments: {
+    company_name: "ai-lens" | "syngenta" | "dr.reddys" | "amgen";
+  };
+  tool_call_id: string;
+};
+
+type ShowProject = {
+  name: "show_project";
+  arguments: {
+    project_id: string;
+  };
+  tool_call_id: string;
+};
+
+type ShowSection = {
+  name: "show_section";
+  arguments: {
+    section_name: "open-source" | "experience" | "publication" | "about" | "blogs";
+  };
+  tool_call_id: string;
+};
+
+type ShowOpenSource = {
+  name: "show_open_source";
+  arguments: {
+    project: "wingmate" | "interact" | "pyautoguide" | "snatch";
+  };
+  tool_call_id: string;
+};
+
 type ToolCallStream = {
   type: "ToolCall";
-  tool: {
-    name: string;
-    arguments: object;
-    tool_call_id: string;
-  };
+  tool: SearchProject | ShowExperience | ShowProject | ShowSection | ShowOpenSource;
 };
+
 type ChatMode = "minimized" | "chat" | "extended-chat";
 
 interface Message {
   id: string;
   role: "user" | "ai";
   text: string;
+}
+
+interface ChatbotProps {
+  smoother: React.MutableRefObject<ScrollSmoother | null>;
 }
 
 const respondToUser = async (
@@ -100,7 +144,33 @@ const TextArea = ({
   );
 };
 
-const Chatbot: React.FC = () => {
+const getElementId = (tool: ToolCallStream["tool"]): string | null => {
+  switch (tool.name) {
+    case "show_experience":
+      return `experience-${tool.arguments.company_name}`;
+    case "show_project":
+      return `project-${tool.arguments.project_id}`;
+    case "show_section":
+      // eslint-disable-next-line no-case-declarations
+      const map: Record<string, string> = {
+        about: "about-me",
+        publication: "publications",
+        blogs: "publications",
+        experience: "experience",
+        projects: "projects",
+        "open-source": "open-source",
+      };
+      return map[tool.arguments.section_name] || tool.arguments.section_name;
+    case "show_open_source":
+      return `opensource-${tool.arguments.project}`;
+    case "search_projects":
+      return "projects-search";
+    default:
+      return null;
+  }
+};
+
+const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   const [mode, setMode] = useState<ChatMode>("minimized");
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -140,6 +210,34 @@ const Chatbot: React.FC = () => {
     }
   }, [mode]);
 
+  const scrollToAndHighlight = useCallback(
+    (elementId: string) => {
+      const element = document.getElementById(elementId);
+      if (!element) {
+        console.warn(`Element with id ${elementId} not found`);
+        return;
+      }
+
+      if (smoother.current) {
+        smoother.current.scrollTo(element, true, "center center");
+      } else {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+        // Add highlight class
+        element.classList.add("ai-highlight");
+
+        setTimeout(() => {
+          element.classList.remove("ai-highlight");
+        }, 3000);
+      }, 1000);
+    },
+    [smoother]
+  );
+
   const handleResponseObj = useCallback((obj: TextStream | ToolCallStream) => {
     if (obj.type === "TextDelta") {
       setMessages((prev) => {
@@ -155,8 +253,12 @@ const Chatbot: React.FC = () => {
       });
     } else if (obj.type === "ToolCall") {
       console.log("Tool call", obj.tool);
+      const id = getElementId(obj.tool);
+      if (id) {
+        scrollToAndHighlight(id);
+      }
     }
-  }, []);
+  }, [scrollToAndHighlight]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;

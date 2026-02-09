@@ -127,3 +127,27 @@
 .markdown strong {
     @apply font-bold;
 }
+
+.ai-highlight:after {
+	content:'';
+  top:0;
+	transform:translateX(100%);
+	width: 180px;
+	height:220px;
+	position: absolute;
+	z-index:1;
+	animation: slide 5s;
+	 
+  /* 
+  CSS Gradient - Shine effect using var(--color-primary)
+  */
+  background: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--color-primary), transparent 54%) 50%, transparent 100%);
+}
+
+/* animation */
+
+@keyframes slide {
+	0% {transform:translateX(-150%) skewX(-25deg);}
+	30% {transform:translateX(500%) skewX(-25deg);}
+  100% {transform:translateX(500%) skewX(-25deg);}
+}

@@ -5,13 +5,21 @@ interface ExperienceProps {
   data: ExperienceItem[];
 }
 
+const getCompanyKey = (companyName: string) => {
+  if (companyName.includes("AI Lens")) return "ai-lens";
+  if (companyName.includes("Syngenta")) return "syngenta";
+  if (companyName.includes("Dr. Reddy")) return "dr.reddys";
+  if (companyName.includes("Amgen")) return "amgen";
+  return companyName.toLowerCase().replace(/[^a-z0-9]/g, '-');
+};
+
 const Experience = ({ data }: ExperienceProps) => {
   return (
     <section id="experience" className="space-y-4">
       <h2 className="text-3xl font-bold text-primary">Experience</h2>
       <ul className="timeline timeline-vertical max-md:timeline-compact w-[85%] max-md:w-full gap-6">
         {data.map((job, index) => (
-          <li key={index}>
+          <li key={index} id={`experience-${getCompanyKey(job.company)}`}>
             <hr className="bg-primary/15" />
             <div className="timeline-start text-end max-md:text-start">
               <div className="text-xl font-bold text-neutral">

@@ -118,7 +118,7 @@ function App() {
         </div>
         <Footer />
       </div>
-      <Chatbot />
+      <Chatbot smoother={smoother} />
     </div>
   );
 }

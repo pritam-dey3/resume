@@ -36,6 +36,7 @@ const Projects = ({ data: projects }: ProjectsProps) => {
       
       <div className="w-full px-9 my-3">
         <input
+          id="projects-search"
           type="text"
           placeholder="Search projects..."
           className="input input-bordered w-full bg-base-100"
@@ -68,7 +69,7 @@ const Projects = ({ data: projects }: ProjectsProps) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[60vh] overflow-y-auto">
         {filteredProjects.map((project) => (
-          <div key={project.project_id} className="card bg-base-200 shadow-lg hover:shadow-2xl transition-shadow duration-300 m-2 rounded-lg card-corner-borders">
+          <div key={project.project_id} id={`project-${project.project_id}`} className="card bg-base-200 shadow-lg hover:shadow-2xl transition-shadow duration-300 m-2 rounded-lg card-corner-borders">
             <div className="card-body">
               <h2 className="card-title text-secondary">{project.project_name}</h2>
               <p>{project.description}</p>
