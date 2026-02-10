@@ -144,12 +144,20 @@ const TextArea = ({
   );
 };
 
-const getElementId = (tool: ToolCallStream["tool"]): string | null => {
+const getElementId = (
+  tool: ToolCallStream["tool"]
+): { elementId: string; sectionId?: string } | null => {
   switch (tool.name) {
     case "show_experience":
-      return `experience-${tool.arguments.company_name}`;
+      return {
+        elementId: `experience-${tool.arguments.company_name}`,
+        sectionId: "experience",
+      };
     case "show_project":
-      return `project-${tool.arguments.project_id}`;
+      return {
+        elementId: `project-${tool.arguments.project_id}`,
+        sectionId: "projects",
+      };
     case "show_section":
       // eslint-disable-next-line no-case-declarations
       const map: Record<string, string> = {
@@ -160,11 +168,17 @@ const getElementId = (tool: ToolCallStream["tool"]): string | null => {
         projects: "projects",
         "open-source": "open-source",
       };
-      return map[tool.arguments.section_name] || tool.arguments.section_name;
+      return {
+        elementId:
+          map[tool.arguments.section_name] || tool.arguments.section_name,
+      };
     case "show_open_source":
-      return `opensource-${tool.arguments.project}`;
+      return {
+        elementId: `opensource-${tool.arguments.project}`,
+        sectionId: "open-source",
+      };
     case "search_projects":
-      return "projects-search";
+      return { elementId: "projects-search", sectionId: "projects" };
     default:
       return null;
   }
@@ -211,11 +225,39 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   }, [mode]);
 
   const scrollToAndHighlight = useCallback(
-    (elementId: string) => {
+    (elementId: string, sectionId?: string) => {
       const element = document.getElementById(elementId);
       if (!element) {
         console.warn(`Element with id ${elementId} not found`);
         return;
+      }
+
+      const highlight = () => {
+        element.classList.add("ai-highlight");
+        setTimeout(() => {
+          element.classList.remove("ai-highlight");
+        }, 3000);
+      };
+
+      if (sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          if (smoother.current) {
+            smoother.current.scrollTo(section, true, "center center");
+          } else {
+            section.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+
+          setTimeout(() => {
+            element.scrollIntoView({
+              behavior: "smooth",
+              block: "nearest",
+              inline: "center",
+            });
+            highlight();
+          }, 1000);
+          return;
+        }
       }
 
       if (smoother.current) {
@@ -226,39 +268,36 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
 
       setTimeout(() => {
         element.scrollIntoView({ behavior: "smooth", block: "nearest" });
-
-        // Add highlight class
-        element.classList.add("ai-highlight");
-
-        setTimeout(() => {
-          element.classList.remove("ai-highlight");
-        }, 3000);
+        highlight();
       }, 1000);
     },
     [smoother]
   );
 
-  const handleResponseObj = useCallback((obj: TextStream | ToolCallStream) => {
-    if (obj.type === "TextDelta") {
-      setMessages((prev) => {
-        const lastMsg = prev[prev.length - 1];
-        if (lastMsg.role === "ai") {
-          setGettingResponse(false);
-          return [
-            ...prev.slice(0, -1),
-            { ...lastMsg, text: lastMsg.text + obj.delta },
-          ];
+  const handleResponseObj = useCallback(
+    (obj: TextStream | ToolCallStream) => {
+      if (obj.type === "TextDelta") {
+        setMessages((prev) => {
+          const lastMsg = prev[prev.length - 1];
+          if (lastMsg.role === "ai") {
+            setGettingResponse(false);
+            return [
+              ...prev.slice(0, -1),
+              { ...lastMsg, text: lastMsg.text + obj.delta },
+            ];
+          }
+          return prev;
+        });
+      } else if (obj.type === "ToolCall") {
+        console.log("Tool call", obj.tool);
+        const ids = getElementId(obj.tool);
+        if (ids) {
+          scrollToAndHighlight(ids.elementId, ids.sectionId);
         }
-        return prev;
-      });
-    } else if (obj.type === "ToolCall") {
-      console.log("Tool call", obj.tool);
-      const id = getElementId(obj.tool);
-      if (id) {
-        scrollToAndHighlight(id);
       }
-    }
-  }, [scrollToAndHighlight]);
+    },
+    [scrollToAndHighlight]
+  );
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
