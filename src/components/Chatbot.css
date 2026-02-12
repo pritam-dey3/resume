@@ -128,15 +128,19 @@
     @apply font-bold;
 }
 
+.ai-highlight {
+  overflow: hidden;
+}
+
 .ai-highlight:after {
 	content:'';
   top:0;
 	transform:translateX(100%);
-	width: 180px;
-	height:220px;
+	width: 40%;
+	height:100%;
 	position: absolute;
 	z-index:1;
-	animation: slide 5s;
+	animation: slide 4s infinite;
 	 
   /* 
   CSS Gradient - Shine effect using var(--color-primary)
@@ -148,6 +152,6 @@
 
 @keyframes slide {
 	0% {transform:translateX(-150%) skewX(-25deg);}
-	30% {transform:translateX(500%) skewX(-25deg);}
-  100% {transform:translateX(500%) skewX(-25deg);}
+	/* 30% {transform:translateX(150%) skewX(-25deg);} */
+  100% {transform:translateX(300%) skewX(-25deg);}
 }
