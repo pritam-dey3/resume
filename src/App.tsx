@@ -65,10 +65,10 @@ function App() {
     () => {
       if (isLoading) return;
       smoother.current = ScrollSmoother.create({
-        wrapper: "#root",
+        wrapper: "#smooth-wrapper",
         content: "#content",
         smooth: 1.5,
-        smoothTouch: 0.6,
+        smoothTouch: false,
         effects: true,
       });
 
@@ -92,7 +92,7 @@ function App() {
         );
       });
     },
-    { scope: "#root", dependencies: [isLoading] }
+    { scope: "#smooth-wrapper", dependencies: [isLoading] }
   );
 
   const mainContentRef = useRef(null);
@@ -102,13 +102,13 @@ function App() {
   }
 
   return (
-    <div id="root">
+    <div id="smooth-wrapper">
       <Nav smoother={smoother} theme={theme} toggleTheme={toggleTheme} />
       <div id="content">
         <div
           ref={mainContentRef}
           id="main"
-          className="mx-auto p-4 space-y-12 max-w-339 mb-60"
+          className="mx-auto p-4 space-y-12 max-w-339 relative mb-60"
         >
           <AboutMe data={personalData} />
           <Experience data={experienceData} />
@@ -118,7 +118,7 @@ function App() {
         </div>
         <Footer />
       </div>
-      <Chatbot smoother={smoother} />
+        <Chatbot smoother={smoother} />
     </div>
   );
 }

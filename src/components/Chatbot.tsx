@@ -225,7 +225,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   }, [mode]);
 
   const scrollToAndHighlight = useCallback(
-    (elementId: string, sectionId?: string) => {
+    (elementId: string, sectionId?: string, shouldHighlight: boolean = true) => {
       const element = document.getElementById(elementId);
       if (!element) {
         console.warn(`Element with id ${elementId} not found`);
@@ -233,6 +233,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
       }
 
       const highlight = () => {
+        if (!shouldHighlight) return;
         element.classList.add("ai-highlight");
         setTimeout(() => {
           element.classList.remove("ai-highlight");
@@ -292,7 +293,23 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         console.log("Tool call", obj.tool);
         const ids = getElementId(obj.tool);
         if (ids) {
-          scrollToAndHighlight(ids.elementId, ids.sectionId);
+          
+          if (obj.tool.name === "search_projects") {
+            const element = document.getElementById(
+              ids.elementId
+            ) as HTMLInputElement | null;
+            if (element) {
+              // React overrides the native value setter, so we use the prototype setter
+              const match = Object.getOwnPropertyDescriptor(
+                window.HTMLInputElement.prototype,
+                "value"
+              );
+              match?.set?.call(element, obj.tool.arguments.query);
+              element.dispatchEvent(new Event("input", { bubbles: true }));
+            }
+          } else {
+            scrollToAndHighlight(ids.elementId, ids.sectionId);
+          }
         }
       }
     },
@@ -352,19 +369,21 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
     .find((m) => m.role === "ai")?.text;
 
   return (
-    <div
-      className={cn(
-        "fixed grid z-50 m-3 md:m-6 transition-all duration-300 ease-in-out font-sans right-0 bottom-0 bg-base-300/15 rounded-xl backdrop-blur-md border-primary items-center",
-        mode === "minimized" && "",
-        (mode === "chat" || mode === "extended-chat") &&
-          "p-2 gap-y-2 gap-x-2 grid-rows-[auto_1fr_auto] grid-cols-[1fr_auto] border",
-        mode === "chat" && "left-0 md:left-auto w-auto md:w-123",
-        mode === "extended-chat" &&
-          "left-0 top-0 md:left-auto md:top-auto md:w-123 md:h-[570px] md:max-h-[calc(100vh-6rem)]"
-      )}
-    >
-      {/* Control buttons */}
-      {(mode == "chat" || mode == "extended-chat") && (
+    <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none flex justify-center">
+      <div className="w-full max-w-339 relative">
+        <div
+          className={cn(
+            "absolute grid z-50 transition-all duration-300 ease-in-out font-sans right-4 bottom-4 bg-base-300/15 rounded-xl backdrop-blur-md border-primary items-center pointer-events-auto",
+            mode === "minimized" && "",
+            (mode === "chat" || mode === "extended-chat") &&
+              "p-2 gap-y-2 gap-x-2 grid-rows-[auto_1fr_auto] grid-cols-[1fr_auto] border",
+            mode === "chat" && "left-4 md:left-auto w-auto md:w-123",
+            mode === "extended-chat" &&
+              "fixed inset-0 rounded-none md:absolute md:inset-auto md:right-4 md:bottom-4 md:w-123 md:h-[570px] md:max-h-[calc(100vh-6rem)] md:rounded-xl"
+          )}
+        >
+          {/* Control buttons */}
+          {(mode == "chat" || mode == "extended-chat") && (
         <div className="col-span-2 flex flex-row gap-2 w-full justify-end px-4 md:px-3">
           <ArrowsOutSimpleIcon
             size={15}
@@ -472,6 +491,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
             <ChatTextIcon size={15} weight="fill" />
           </button>
         )}
+      </div>
+      </div>
       </div>
     </div>
   );
