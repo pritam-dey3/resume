@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import { v4 as uuidv4 } from "uuid";
 import {
   HeadCircuitIcon,
   XIcon,
@@ -199,7 +200,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const sessionId = useRef<string>(crypto.randomUUID());
+  const sessionId = useRef<string>(uuidv4());
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
