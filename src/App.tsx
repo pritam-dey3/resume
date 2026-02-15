@@ -65,7 +65,7 @@ function App() {
     () => {
       if (isLoading) return;
       smoother.current = ScrollSmoother.create({
-        wrapper: "#smooth-wrapper",
+        wrapper: "#root",
         content: "#content",
         smooth: 1.5,
         smoothTouch: false,
@@ -92,7 +92,7 @@ function App() {
         );
       });
     },
-    { scope: "#smooth-wrapper", dependencies: [isLoading] }
+    { scope: "#root", dependencies: [isLoading] }
   );
 
   const mainContentRef = useRef(null);
@@ -102,7 +102,7 @@ function App() {
   }
 
   return (
-    <div id="smooth-wrapper">
+    <div id="root">
       <Nav smoother={smoother} theme={theme} toggleTheme={toggleTheme} />
       <div id="content">
         <div
