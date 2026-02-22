@@ -187,6 +187,7 @@ const getElementId = (
 
 const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   const [mode, setMode] = useState<ChatMode>("minimized");
+  const [isExpandingToExtended, setIsExpandingToExtended] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -364,6 +365,16 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
     }
   };
 
+  const handleContainerTransitionEnd = (
+    e: React.TransitionEvent<HTMLDivElement>
+  ) => {
+    if (!isExpandingToExtended) return;
+    if (e.target !== e.currentTarget) return;
+    if (e.propertyName !== "height" && e.propertyName !== "max-height") return;
+    setMode("extended-chat");
+    setIsExpandingToExtended(false);
+  };
+
   // Get last AI message for chat mode display
   const lastAiMessage = [...messages]
     .reverse()
@@ -373,14 +384,18 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
     <div className="fixed inset-x-0 bottom-0 z-50 pointer-events-none flex justify-center">
       <div className="w-full max-w-339 relative">
         <div
+          onTransitionEnd={handleContainerTransitionEnd}
           className={cn(
-            "absolute grid z-50 transition-all duration-300 ease-in-out font-sans right-4 bottom-4 bg-base-300/15 rounded-xl backdrop-blur-md border-primary items-center pointer-events-auto",
-            mode === "minimized" && "",
-            (mode === "chat" || mode === "extended-chat") &&
-              "p-2 gap-y-2 gap-x-2 grid-rows-[auto_1fr_auto] grid-cols-[1fr_auto] border",
-            mode === "chat" && "left-4 md:left-auto w-auto md:w-123",
-            mode === "extended-chat" &&
-              "fixed inset-0 rounded-none md:absolute md:inset-auto md:right-4 md:bottom-4 md:w-123 md:h-[570px] md:max-h-[calc(100vh-6rem)] md:rounded-xl"
+            "absolute grid z-50 transition-[width,height,max-height] duration-300 ease-in-out font-sans right-4 bottom-4 bg-base-300/15 backdrop-blur-md border border-transparent items-center pointer-events-auto",
+            mode === "minimized" &&
+              "w-12 h-12 rounded-full justify-items-center",
+            (mode === "chat" || mode === "extended-chat" || isExpandingToExtended) &&
+              "rounded-xl p-2 gap-y-2 gap-x-2 grid-rows-[auto_1fr_auto] grid-cols-[1fr_auto] border-primary",
+            mode === "chat" &&
+              !isExpandingToExtended &&
+              "left-4 md:left-auto w-auto md:w-123 h-28 overflow-hidden",
+            (mode === "extended-chat" || isExpandingToExtended) &&
+              "fixed inset-x-0 bottom-0 h-dvh rounded-none md:absolute md:inset-auto md:right-4 md:bottom-4 md:w-123 md:h-[570px] md:max-h-[calc(100vh-6rem)] md:rounded-xl"
           )}
         >
           {/* Control buttons */}
@@ -388,11 +403,22 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         <div className="col-span-2 flex flex-row gap-2 w-full justify-end px-4 md:px-3">
           <ArrowsOutSimpleIcon
             size={15}
-            onClick={() =>
-              mode === "chat" ? setMode("extended-chat") : setMode("chat")
-            }
+            onClick={() => {
+              if (mode === "chat") {
+                setIsExpandingToExtended(true);
+                return;
+              }
+              setMode("chat");
+              setIsExpandingToExtended(false);
+            }}
           />
-          <XIcon size={15} onClick={() => setMode("minimized")} />
+          <XIcon
+            size={15}
+            onClick={() => {
+              setMode("minimized");
+              setIsExpandingToExtended(false);
+            }}
+          />
         </div>
       )}
       {/* Extended Chat */}
