@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { v4 as uuidv4 } from "uuid";
 import {
   HeadCircuitIcon,
   XIcon,
@@ -8,101 +7,16 @@ import {
   ChatTextIcon,
 } from "@phosphor-icons/react";
 import { cn } from "../lib/utils";
+import { useBot, type BotTool } from "../lib/bot";
 import Markdown from 'react-markdown'
-import { fetchEventSource } from "@microsoft/fetch-event-source";
 import "./Chatbot.css";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
-type TextStream = {
-  type: "TextDelta";
-  delta: string;
-};
-
-// Tool types
-type SearchProject = {
-  name: "search_projects";
-  arguments: {
-    query: string;
-  };
-  tool_call_id: string;
-};
-
-type ShowExperience = {
-  name: "show_experience";
-  arguments: {
-    company_name: "ai-lens" | "syngenta" | "dr.reddys" | "amgen";
-  };
-  tool_call_id: string;
-};
-
-type ShowProject = {
-  name: "show_project";
-  arguments: {
-    project_id: string;
-  };
-  tool_call_id: string;
-};
-
-type ShowSection = {
-  name: "show_section";
-  arguments: {
-    section_name: "open-source" | "experience" | "publication" | "about" | "blogs";
-  };
-  tool_call_id: string;
-};
-
-type ShowOpenSource = {
-  name: "show_open_source";
-  arguments: {
-    project: "wingmate" | "interact" | "pyautoguide" | "snatch";
-  };
-  tool_call_id: string;
-};
-
-type ToolCallStream = {
-  type: "ToolCall";
-  tool: SearchProject | ShowExperience | ShowProject | ShowSection | ShowOpenSource;
-};
-
 type ChatMode = "minimized" | "chat" | "extended-chat";
-
-interface Message {
-  id: string;
-  role: "user" | "ai";
-  text: string;
-}
 
 interface ChatbotProps {
   smoother: React.MutableRefObject<ScrollSmoother | null>;
 }
-
-const respondToUser = async (
-  message: string,
-  sessionId: string,
-  handleResponseObj: (obj: TextStream | ToolCallStream) => void
-) => {
-  const chatUrl = import.meta.env.VITE_BACKEND_URL + "/chat";
-  console.log("Base URL", chatUrl);
-
-  await fetchEventSource(chatUrl, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "text/event-stream", // or text/event-stream
-    },
-    body: JSON.stringify({ user_query: message, session_id: sessionId }),
-    onmessage(ev) {
-      const data = JSON.parse(ev.data);
-      console.log(data);
-      handleResponseObj(data);
-    },
-    onerror(err) {
-      console.error(err);
-    }
-  });
-
-  console.log("function returned");
-};
 
 const LoadingMessage = () => {
   return (
@@ -146,7 +60,7 @@ const TextArea = ({
 };
 
 const getElementId = (
-  tool: ToolCallStream["tool"]
+  tool: BotTool
 ): { elementId: string; sectionId?: string } | null => {
   switch (tool.name) {
     case "show_experience":
@@ -188,43 +102,14 @@ const getElementId = (
 const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   const [mode, setMode] = useState<ChatMode>("minimized");
   const [isExpandingToExtended, setIsExpandingToExtended] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "ai",
-      text: "Hello! I am your AI assistant. Ask me anything about my projects or experience.",
-    },
-  ]);
   const [inputValue, setInputValue] = useState("");
   const [isInputMode, setIsInputMode] = useState(false);
-  const [gettingResponse, setGettingResponse] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-
-  const sessionId = useRef<string>(uuidv4());
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-
-  useEffect(() => {
-    if (mode === "extended-chat") {
-      scrollToBottom();
-    }
-  }, [messages, mode]);
-
-  useEffect(() => {
-    if (isInputMode || mode === "extended-chat") {
-      inputRef.current?.focus();
-    }
-  }, [isInputMode, mode]);
-
-  // Reset input mode when going back to chat from minimized
-  useEffect(() => {
-    if (mode === "chat") {
-      setIsInputMode(false);
-    }
-  }, [mode]);
 
   const scrollToAndHighlight = useCallback(
     (elementId: string, sectionId?: string, shouldHighlight: boolean = true) => {
@@ -277,85 +162,64 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
     [smoother]
   );
 
-  const handleResponseObj = useCallback(
-    (obj: TextStream | ToolCallStream) => {
-      if (obj.type === "TextDelta") {
-        setMessages((prev) => {
-          const lastMsg = prev[prev.length - 1];
-          if (lastMsg.role === "ai") {
-            setGettingResponse(false);
-            return [
-              ...prev.slice(0, -1),
-              { ...lastMsg, text: lastMsg.text + obj.delta },
-            ];
-          }
-          return prev;
-        });
-      } else if (obj.type === "ToolCall") {
-        console.log("Tool call", obj.tool);
-        const ids = getElementId(obj.tool);
-        if (ids) {
-          
-          if (obj.tool.name === "search_projects") {
-            const element = document.getElementById(
-              ids.elementId
-            ) as HTMLInputElement | null;
-            if (element) {
-              // React overrides the native value setter, so we use the prototype setter
-              const match = Object.getOwnPropertyDescriptor(
-                window.HTMLInputElement.prototype,
-                "value"
-              );
-              match?.set?.call(element, obj.tool.arguments.query);
-              element.dispatchEvent(new Event("input", { bubbles: true }));
-            }
-          } else {
-            scrollToAndHighlight(ids.elementId, ids.sectionId);
-          }
+  const handleToolCall = useCallback(
+    (tool: BotTool) => {
+      const ids = getElementId(tool);
+      if (!ids) return;
+
+      if (tool.name === "search_projects") {
+        const element = document.getElementById(
+          ids.elementId
+        ) as HTMLInputElement | null;
+        if (element) {
+          const match = Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype,
+            "value"
+          );
+          match?.set?.call(element, tool.arguments.query);
+          element.dispatchEvent(new Event("input", { bubbles: true }));
         }
+        return;
       }
+
+      scrollToAndHighlight(ids.elementId, ids.sectionId);
     },
     [scrollToAndHighlight]
   );
 
+  const { messages: botMessages, gettingResponse, sendMessage } = useBot({
+    initialMessages: [
+      {
+        id: "1",
+        role: "ai",
+        text: "Hello! I am your AI assistant. Ask me anything about my projects or experience.",
+      },
+    ],
+    onToolCall: handleToolCall,
+  });
+
+  useEffect(() => {
+    if (mode === "extended-chat") {
+      scrollToBottom();
+    }
+  }, [botMessages, mode]);
+
+  useEffect(() => {
+    if (isInputMode || mode === "extended-chat") {
+      inputRef.current?.focus();
+    }
+  }, [isInputMode, mode]);
+
   const handleSendMessage = async () => {
-    if (!inputValue.trim()) return;
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      role: "user",
-      text: inputValue,
-    };
-    setMessages((prev) => [...prev, newMessage]);
+    const trimmedInput = inputValue.trim();
+    if (!trimmedInput) return;
     setInputValue("");
 
     if (mode === "chat") {
       setIsInputMode(false);
     }
 
-    // get assistant response
-    setGettingResponse(true);
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: (Date.now() + 1).toString(),
-        role: "ai",
-        text: "",
-      },
-    ]);
-    try {
-      await respondToUser(inputValue, sessionId.current, handleResponseObj);
-    } catch (error) {
-      console.error("Failed to get response:", error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: "ai",
-        text: "Sorry, something went wrong. Please try again.",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setGettingResponse(false);
-      console.log("messages", messages);
-    }
+    await sendMessage(trimmedInput);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -376,7 +240,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   };
 
   // Get last AI message for chat mode display
-  const lastAiMessage = [...messages]
+  const lastAiMessage = [...botMessages]
     .reverse()
     .find((m) => m.role === "ai")?.text;
 
@@ -400,7 +264,12 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         >
           {/* Control buttons */}
           {(mode == "chat" || mode == "extended-chat") && (
-        <div className="col-span-2 flex flex-row gap-2 w-full justify-end px-4 md:px-3">
+        <div
+          className={cn(
+            "col-span-2 flex flex-row gap-2 w-full justify-end px-4 md:px-3",
+            mode === "extended-chat" && "pt-3 md:pt-0"
+          )}
+        >
           <ArrowsOutSimpleIcon
             size={15}
             onClick={() => {
@@ -410,6 +279,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
               }
               setMode("chat");
               setIsExpandingToExtended(false);
+              setIsInputMode(false);
             }}
           />
           <XIcon
@@ -426,7 +296,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         <div className="col-span-2 min-h-0 h-full">
           {/* Messages */}
           <div className="overflow-y-auto p-2 md:p-4 pt-12 h-full space-y-4 scrollbar-thin scrollbar-thumb-base-300 scrollbar-track-transparent">
-            {messages.map((msg) => (
+            {botMessages.map((msg) => (
               <div
                 key={msg.id}
                 className={cn(
@@ -497,7 +367,10 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         {mode == "minimized" && (
           <button
             className="btn btn-primary btn-circle shadow-md"
-            onClick={() => setMode("chat")}
+            onClick={() => {
+              setMode("chat");
+              setIsInputMode(false);
+            }}
           >
             <HeadCircuitIcon size={20} weight="fill" />
           </button>

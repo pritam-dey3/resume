@@ -1,4 +1,4 @@
 
-[ ] height animation during chat <-> extended-chat
+[ ] Separate 
 [ ] put border in ai chat bubble properly (before:)
 [ ] revise prompt
