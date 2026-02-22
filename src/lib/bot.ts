@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { v4 as uuidv4 } from "uuid";
 
