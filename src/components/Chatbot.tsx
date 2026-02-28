@@ -104,6 +104,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
   const [isExpandingToExtended, setIsExpandingToExtended] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isInputMode, setIsInputMode] = useState(false);
+  const [showAutoTooltip, setShowAutoTooltip] = useState(false);
+  const hasShownAutoTooltip = useRef(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -192,7 +194,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
       {
         id: "1",
         role: "ai",
-        text: "Hello! I am your AI assistant. Ask me anything about my projects or experience.",
+        text: "Hello! I am your AI assistant. Ask me anything about Pritam's projects or experience.",
       },
     ],
     onToolCall: handleToolCall,
@@ -209,6 +211,18 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
       inputRef.current?.focus();
     }
   }, [isInputMode, mode]);
+
+  useEffect(() => {
+    if (mode === "chat" && !hasShownAutoTooltip.current) {
+      hasShownAutoTooltip.current = true;
+      const showTimer = setTimeout(() => setShowAutoTooltip(true), 0);
+      const hideTimer = setTimeout(() => setShowAutoTooltip(false), 1000);
+      return () => {
+        clearTimeout(showTimer);
+        clearTimeout(hideTimer);
+      };
+    }
+  }, [mode]);
 
   const handleSendMessage = async () => {
     const trimmedInput = inputValue.trim();
@@ -384,12 +398,17 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
           </button>
         )}
         {mode == "chat" && !isInputMode && (
-          <button
-            className="btn btn-primary btn-circle btn-sm shadow-md"
-            onClick={() => setIsInputMode(true)}
+          <div
+            className={cn("tooltip tooltip-left", showAutoTooltip && "tooltip-open")}
+            data-tip="Start chatting"
           >
-            <ChatTextIcon size={15} weight="fill" />
-          </button>
+            <button
+              className="btn btn-primary btn-circle btn-sm shadow-md"
+              onClick={() => setIsInputMode(true)}
+            >
+              <ChatTextIcon size={15} weight="fill" />
+            </button>
+          </div>
         )}
       </div>
       </div>
