@@ -80,6 +80,7 @@ const Nav = ({
             <div
               role="button"
               tabIndex={0}
+              aria-label="Open navigation menu"
               className="text-xl outline-none cursor-pointer"
             >
               <div className="flex items-center gap-2 group">
@@ -123,13 +124,17 @@ const Nav = ({
             Blogs
           </li> */}
           <li>
-            <span className="" onClick={toggleTheme}>
+            <button
+              onClick={toggleTheme}
+              aria-label={theme === "mydark" ? "Switch to light mode" : "Switch to dark mode"}
+              className="cursor-pointer bg-transparent border-none p-0 flex items-center"
+            >
               {theme === "mydark" ? (
                 <SunIcon size={24} />
               ) : (
                 <MoonIcon size={24} />
               )}
-            </span>
+            </button>
           </li>
         </ul>
       </div>

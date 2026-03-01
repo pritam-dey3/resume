@@ -23,9 +23,10 @@ const OpenSource = ({ data }: OpenSourceProps) => {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`View ${item.name} on GitHub`}
                   className="link link-hover text-accent"
                 >
-                <GithubLogoIcon size={24} />
+                  <GithubLogoIcon size={24} />
                 </a>
               </h3>
               <p dangerouslySetInnerHTML={{ __html: item.description }}></p>

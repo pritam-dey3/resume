@@ -284,8 +284,9 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
             mode === "extended-chat" && "pt-3 md:pt-0"
           )}
         >
-          <ArrowsOutSimpleIcon
-            size={15}
+          <button
+            aria-label={mode === "chat" ? "Expand chat" : "Collapse chat"}
+            className="btn btn-ghost btn-xs btn-circle"
             onClick={() => {
               if (mode === "chat") {
                 setIsExpandingToExtended(true);
@@ -295,14 +296,19 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
               setIsExpandingToExtended(false);
               setIsInputMode(false);
             }}
-          />
-          <XIcon
-            size={15}
+          >
+            <ArrowsOutSimpleIcon size={15} />
+          </button>
+          <button
+            aria-label="Close chat"
+            className="btn btn-ghost btn-xs btn-circle"
             onClick={() => {
               setMode("minimized");
               setIsExpandingToExtended(false);
             }}
-          />
+          >
+            <XIcon size={15} />
+          </button>
         </div>
       )}
       {/* Extended Chat */}
@@ -380,6 +386,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
       <div>
         {mode == "minimized" && (
           <button
+            aria-label="Open chatbot"
             className="btn btn-primary btn-circle shadow-md"
             onClick={() => {
               setMode("chat");
@@ -391,6 +398,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         )}
         {((mode == "chat" && isInputMode) || mode == "extended-chat") && (
           <button
+            aria-label="Send message"
             className="btn btn-primary btn-circle btn-sm shadow-md"
             onClick={handleSendMessage}
           >
@@ -403,6 +411,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
             data-tip="Start chatting"
           >
             <button
+              aria-label="Start chatting"
               className="btn btn-primary btn-circle btn-sm shadow-md"
               onClick={() => setIsInputMode(true)}
             >

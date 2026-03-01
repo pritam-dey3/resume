@@ -105,7 +105,7 @@ function App() {
     <div id="root">
       <Nav smoother={smoother} theme={theme} toggleTheme={toggleTheme} />
       <div id="content">
-        <div
+        <main
           ref={mainContentRef}
           id="main"
           className="mx-auto p-4 space-y-12 max-w-339 relative mb-60"
@@ -115,7 +115,7 @@ function App() {
           <Projects data={projectsData} />
           <Publications data={personalData.publications} />
           <OpenSource data={openSourceData} />
-        </div>
+        </main>
         <Footer />
       </div>
         <Chatbot smoother={smoother} />
