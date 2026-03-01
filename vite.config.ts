@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react({
       babel: {
-        plugins: [['babel-plugin-react-compiler']],
+        plugins: [["babel-plugin-react-compiler"]],
       },
     }),
     tailwindcss(),
@@ -20,4 +20,7 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-})
+  server: {
+    allowedHosts: true,
+  },
+});
