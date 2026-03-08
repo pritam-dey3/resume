@@ -1,5 +1,4 @@
 import "./App.css";
-import { Thumbmark } from "@thumbmarkjs/thumbmarkjs";
 import AboutMe from "./components/AboutMe";
 import Experience from "./components/Experience";
 import Footer from "./components/Footer";
@@ -51,29 +50,6 @@ function App() {
       return newTheme;
     });
   };
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://server.pritamdey.in/umami/script.js";
-    script.setAttribute("data-website-id", "82e1df0d-3c92-47ba-a807-ab14f2f60575");
-    script.setAttribute("data-auto-track", "true");
-    document.head.appendChild(script);
-
-    const thumbmarkPromise = new Thumbmark().get();
-    const scriptLoadPromise = new Promise<void>((resolve, reject) => {
-      script.onload = () => resolve();
-      script.onerror = () => reject();
-    });
-
-    Promise.all([thumbmarkPromise, scriptLoadPromise]).then(([result]) => {
-      window.umami?.identify(result.thumbmark, { ...result });
-      console.log("T", result.thumbmark);
-    });
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
 
   useEffect(() => {
     const handleLoad = () => setIsLoading(false);
