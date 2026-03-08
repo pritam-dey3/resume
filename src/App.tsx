@@ -4,6 +4,7 @@ import Experience from "./components/Experience";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Nav from "./components/Nav";
+import Blogs from "./components/Blogs";
 import OpenSource from "./components/OpenSource";
 import Projects from "./components/Projects";
 import Publications from "./components/Publications";
@@ -17,6 +18,7 @@ import { useEffect, useRef, useState } from "react";
 import experienceData from "../about-me-data/experience.json";
 import openSourceData from "../about-me-data/open-source.json";
 import personalData from "../about-me-data/personal.json";
+import blogsData from "../about-me-data/blogs.json";
 import projectsData from "../about-me-data/projects.json";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -113,6 +115,7 @@ function App() {
           <AboutMe data={personalData} />
           <Experience data={experienceData} />
           <Projects data={projectsData} />
+          <Blogs data={blogsData} />
           <Publications data={personalData.publications} />
           <OpenSource data={openSourceData} />
         </main>
