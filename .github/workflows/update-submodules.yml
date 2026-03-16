@@ -30,4 +30,4 @@ jobs:
           git diff --cached --quiet || git commit -m "Update submodules [auto]"
 
       - name: Push changes
-        run: git push origin HEAD:main
+        run: git push origin HEAD:${{ github.ref_name }}
