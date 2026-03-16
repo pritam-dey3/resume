@@ -1,0 +1,1 @@
+import{t as e}from"./index-BVULB2Px.js";export default e();
