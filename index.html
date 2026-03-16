@@ -268,11 +268,9 @@
         const safeId = String(tmData.thumbmark).slice(0, 50);
         console.log("T", safeId);
 
-        window.umami.identify(safeId, {
-          data: tmData,
-        });
+        window.umami.identify({uniqueId: safeId, data: tmData});
       }
 
-      initIdentity();
+      window.addEventListener('load', () => setTimeout(initIdentity, 2000));
     </script>
 </html>
