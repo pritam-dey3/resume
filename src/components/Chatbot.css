@@ -130,6 +130,7 @@
 
 .ai-highlight {
   overflow: hidden;
+  position: relative;
 }
 
 .ai-highlight:after {

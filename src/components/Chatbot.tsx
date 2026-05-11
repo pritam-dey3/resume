@@ -78,7 +78,7 @@ const getElementId = (
       const map: Record<string, string> = {
         about: "about-me",
         publication: "publications",
-        blogs: "publications",
+        blogs: "blogs",
         experience: "experience",
         projects: "projects",
         "open-source": "open-source",
@@ -188,6 +188,15 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
     },
     [scrollToAndHighlight]
   );
+
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      (window as unknown as Record<string, unknown>).__triggerToolCall = handleToolCall;
+      return () => {
+        delete (window as unknown as Record<string, unknown>).__triggerToolCall;
+      };
+    }
+  }, [handleToolCall]);
 
   const { messages: botMessages, gettingResponse, sendMessage } = useBot({
     initialMessages: [
