@@ -23,7 +23,7 @@ jobs:
 
       - name: Build 🛠️
         env:
-          VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL || 'https://server.pritamdey.in/cv' }}
+          VITE_BACKEND_URL: ${{ vars.VITE_BACKEND_URL || 'https://cv-sv.pritamdey.in' }}
         run: bun run build
 
       - name: Deploy 🚀

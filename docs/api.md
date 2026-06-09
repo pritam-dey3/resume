@@ -6,7 +6,7 @@ Endpoint for interacting with the AI chat assistant.
 
 **Method:** POST
 
-**URL:** `http://localhost:8000/chat`
+**URL:** `https://cv-sv.pritamdey.in/chat`
 
 ### Request Headers
 
@@ -72,7 +72,7 @@ When the assistant needs to use a tool, a `ToolCall` event is emitted:
 ### Example Usage
 
 ```bash
-curl -X POST http://localhost:8000/chat \
+curl -X POST https://cv-sv.pritamdey.in/chat \
   -H "Content-Type: application/json" \
   -d '{"user_query": "Tell me about yourself", "session_id": "my-session"}'
 ```
