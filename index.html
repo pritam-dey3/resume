@@ -259,16 +259,62 @@
           await new Promise((r) => setTimeout(r, 50));
           return initIdentity();
         }
-        await import("https://cdn.jsdelivr.net/npm/@thumbmarkjs/thumbmarkjs/dist/thumbmark.umd.js");
 
-        const t = new window.ThumbmarkJS.Thumbmark();
+        const geoPromise = fetch('https://ipapi.co/json/')
+          .then((response) => response.ok ? response.json() : null)
+          .then((data) => data?.ip ? {
+            ip: data.ip,
+            city: data.city,
+            country: data.country_name || data.country,
+            countryCode: data.country_code,
+            region: data.region,
+          } : null)
+          .catch(() => null);
 
-        const tmData = await t.get();
+        let thumbmarkData = null;
 
-        const safeId = String(tmData.thumbmark).slice(0, 50);
-        console.log("T", safeId);
+        try {
+          await import("https://cdn.jsdelivr.net/npm/@thumbmarkjs/thumbmarkjs/dist/thumbmark.umd.js");
+          const t = new window.ThumbmarkJS.Thumbmark();
+          const tmData = await t.get();
+          const components = tmData?.components || {};
 
-        window.umami.identify({uniqueId: safeId, data: tmData});
+          thumbmarkData = {
+            thumbmark: tmData.thumbmark,
+            thumbmarkVersion: tmData.version,
+            thumbmarkConfidence: tmData.info?.uniqueness?.score,
+            tmBrowserName: components.system?.browser?.name,
+            tmBrowserVersion: components.system?.browser?.version,
+            tmPlatform: components.system?.platform,
+            tmLanguage: components.locales?.languages,
+            tmTimezone: components.locales?.timezone,
+            tmCpuCores: components.system?.hardwareConcurrency,
+            tmDeviceMemory: components.hardware?.deviceMemory,
+            tmTouchPoints: components.screen?.maxTouchPoints,
+            tmWebglRenderer: components.hardware?.videocard?.renderer,
+            tmCanvasHash: components.canvas?.commonPixelsHash,
+            tmWebglHash: components.webgl?.commonPixelsHash,
+            tmAudioHash: components.audio?.sampleHash,
+            tmWebrtcHash: components.webrtc?.hash,
+            tmMobile: components.system?.mobile,
+          };
+        } catch {
+          thumbmarkData = null;
+        }
+
+        const uniqueId = thumbmarkData?.thumbmark || localStorage.getItem('umami-fallback-id') || crypto.randomUUID();
+        localStorage.setItem('umami-fallback-id', uniqueId);
+
+        window.umami.identify(uniqueId, thumbmarkData || {});
+
+        const geoData = await geoPromise;
+
+        if (geoData) {
+          window.umami.identify(uniqueId, {
+            ...(thumbmarkData || {}),
+            ...geoData,
+          });
+        }
       }
 
       window.addEventListener('load', () => setTimeout(initIdentity, 2000));
