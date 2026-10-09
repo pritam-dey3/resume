@@ -1,8 +1,9 @@
 name: Deploy page
-on: 
+on:
   push:
     branches:
       - src
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
