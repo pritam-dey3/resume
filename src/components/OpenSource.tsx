@@ -17,16 +17,15 @@ const OpenSource = ({ data }: OpenSourceProps) => {
             className="card glass-2 glass-hover rounded-box w-full md:w-[calc(50%-var(--spacing)*2)] lg:w-[calc(33.333%-var(--spacing)*8/3)]"
           >
             <div className="card-body">
-              <h3 className="card-title flex-row justify-between">
-                {item.name}
+              <h3 className="card-title">
                 <a
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={`View ${item.name} on GitHub`}
-                  className="link link-hover text-accent"
+                  className="flex items-center gap-2 link link-hover text-accent"
                 >
-                  <GithubLogoIcon size={24} />
+                  {item.name}
+                  <GithubLogoIcon size={24} aria-hidden="true" />
                 </a>
               </h3>
               <p dangerouslySetInnerHTML={{ __html: item.description }}></p>

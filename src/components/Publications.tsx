@@ -11,16 +11,15 @@ const Publications = ({ data }: PublicationsProps) => {
       <div className="p-4">
         <ul className="list-disc list-inside">
           <li>
-            {data.description} -
             <a
               href={data.link}
               target="_blank"
               rel="noopener noreferrer"
               className="link link-hover font-medium"
             >
-              {" "}
-              (Journal)
+              {data.description}
             </a>
+            <span className="text-base-content/70"> (SAGE Journals)</span>
           </li>
         </ul>
       </div>

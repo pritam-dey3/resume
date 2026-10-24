@@ -1,31 +1,33 @@
 import "./App.css";
 import AboutMe from "./components/AboutMe";
 import Experience from "./components/Experience";
+import Education from "./components/Education";
 import Footer from "./components/Footer";
-import Loader from "./components/Loader";
 import Nav from "./components/Nav";
 import Blogs from "./components/Blogs";
 import OpenSource from "./components/OpenSource";
 import Projects from "./components/Projects";
 import Publications from "./components/Publications";
-import Chatbot from "./components/Chatbot";
 import PcbBackground from "./components/PcbBackground";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import experienceData from "../about-me-data/experience.json";
+import educationData from "../about-me-data/education.json";
 import openSourceData from "../about-me-data/open-source.json";
 import personalData from "../about-me-data/personal.json";
 import blogsData from "../about-me-data/blogs.json";
 import projectsData from "../about-me-data/projects.json";
 
+const Chatbot = lazy(() => import("./components/Chatbot"));
+
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [showChatbot, setShowChatbot] = useState(false);
   const smoother = useRef<ScrollSmoother | null>(null);
 
   const [theme, setTheme] = useState(() => {
@@ -55,18 +57,19 @@ function App() {
   };
 
   useEffect(() => {
-    const handleLoad = () => setIsLoading(false);
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => window.removeEventListener("load", handleLoad);
-    }
+    const id = window.setTimeout(() => setShowChatbot(true), 2500);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    const refresh = () => ScrollTrigger.refresh();
+    window.addEventListener("load", refresh);
+    document.fonts?.ready.then(refresh);
+    return () => window.removeEventListener("load", refresh);
   }, []);
 
   useGSAP(
     () => {
-      if (isLoading) return;
       smoother.current = ScrollSmoother.create({
         wrapper: "#root",
         content: "#content",
@@ -95,14 +98,10 @@ function App() {
         );
       });
     },
-    { scope: "#root", dependencies: [isLoading] }
+    { scope: "#root" }
   );
 
   const mainContentRef = useRef(null);
-
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <div id="root">
@@ -118,12 +117,17 @@ function App() {
           <Experience data={experienceData} />
           <Projects data={projectsData} />
           <Blogs data={blogsData} />
+          <Education data={educationData} />
           <Publications data={personalData.publications} />
           <OpenSource data={openSourceData} />
         </main>
         <Footer />
       </div>
-        <Chatbot smoother={smoother} />
+      {showChatbot && (
+        <Suspense fallback={null}>
+          <Chatbot smoother={smoother} />
+        </Suspense>
+      )}
     </div>
   );
 }

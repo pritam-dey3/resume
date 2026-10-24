@@ -1,4 +1,6 @@
 import profileImg from "../assets/profile.webp";
+import profileImg384 from "../assets/profile-384.webp";
+import profileImg768 from "../assets/profile-768.webp";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -93,10 +95,15 @@ const AboutMe = ({ data }: AboutMeProps) => {
       <h2 className="hidden!">About Me</h2>
       <div className="hero-content flex-col lg:flex-row gap-12 items-center">
         <div className="avatar shrink-0">
-          <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full shadow-2xl overflow-hidden">
+          <div className="w-64 h-64 max-[319px]:w-52 max-[319px]:h-52 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full shadow-2xl overflow-hidden">
             <img
-              src={profileImg}
-              alt={personal_information.Name}
+              src={profileImg768}
+              srcSet={`${profileImg384} 384w, ${profileImg768} 768w, ${profileImg} 1200w`}
+              sizes="(max-width: 319px) 208px, (min-width: 1024px) 384px, (min-width: 768px) 320px, 256px"
+              width={1200}
+              height={1200}
+              alt={`${personal_information.Name}, data scientist`}
+              fetchPriority="high"
               className="object-cover w-full h-full"
             />
           </div>
@@ -106,7 +113,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
           <div>
             <h1 className="text-4xl md:text-4xl leading-tight font-semibold">
               <span className="greeting inline-block">Hi, I'm{" "}</span>
-              <span className="text-neutral font-pacifico font-light text-5xl whitespace-nowrap md:ml-2 name">{personal_information.Name}</span>
+              <span className="text-neutral font-pacifico font-light text-5xl max-[319px]:text-4xl whitespace-nowrap md:ml-2 name">{personal_information.Name}</span>
             </h1>
           </div>
 

@@ -110,7 +110,15 @@ const Nav = ({
               <ScrollSpy activeClass="active font-bold text-primary">
                 {sections.map((section) => (
                   <li key={section.id}>
-                    <a onClick={() => smoother.current?.scrollTo(`#${section.id}`, true, 'top 20%')}>{section.label}</a>
+                    <a
+                      href={`#${section.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        smoother.current?.scrollTo(`#${section.id}`, true, "top 20%");
+                      }}
+                    >
+                      {section.label}
+                    </a>
                   </li>
                 ))}
               </ScrollSpy>
