@@ -13,8 +13,12 @@ const Blogs = ({ data }: BlogsProps) => {
         {data.map((blog, index) => (
           <div
             key={index}
-            className="flex flex-col bg-base-200 rounded-lg border-l-4 border-secondary p-5 shadow hover:shadow-lg transition-shadow duration-300"
+            className="relative overflow-hidden flex flex-col glass-2 glass-hover rounded-box p-5"
           >
+            <span
+              aria-hidden="true"
+              className="absolute inset-y-0 left-0 w-1 bg-secondary"
+            />
             <h3 className="text-neutral font-bold text-lg leading-snug mb-2">
               {blog.headline}
             </h3>

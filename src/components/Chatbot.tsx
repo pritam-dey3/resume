@@ -44,7 +44,7 @@ const TextArea = ({
   return (
     <textarea
       ref={inputRef}
-      className="textarea textarea-bordered w-full resize-none focus:outline-none focus:border-primary focus:bg-base-100 text-sm min-h-0 h-auto py-2"
+      className="textarea textarea-bordered glass-1 w-full resize-none focus:outline-none focus:border-primary text-sm min-h-0 h-auto py-2"
       placeholder="Type your message..."
       rows={1}
       value={inputValue}
@@ -273,7 +273,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
         <div
           onTransitionEnd={handleContainerTransitionEnd}
           className={cn(
-            "absolute grid z-50 transition-[width,height,max-height] duration-300 ease-in-out font-sans right-4 bottom-4 bg-base-300/15 backdrop-blur-md border border-transparent items-center pointer-events-auto",
+            "absolute grid z-50 transition-[width,height,max-height] duration-300 ease-in-out font-sans right-4 bottom-4 glass-3 items-center pointer-events-auto",
             mode === "minimized" &&
               "w-12 h-12 rounded-full justify-items-center",
             (mode === "chat" || mode === "extended-chat" || isExpandingToExtended) &&
@@ -335,7 +335,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
               >
                 {msg.role === "ai" && (
                   <div className="chat-image avatar">
-                    <div className="rounded-full border border-primary p-1 bg-base-300">
+                    <div className="rounded-full border border-primary p-1 glass-1">
                       <HeadCircuitIcon
                         size={24}
                         className="text-primary w-full h-full"
@@ -349,7 +349,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
                     "chat-bubble text-sm shadow-xl",
                     msg.role === "user"
                       ? "chat-bubble-primary text-primary-content"
-                      : "bg-base-300 text-base-content border border-primary/40 before:border-b before:border-primary/40"
+                      : "glass-1 text-base-content before:border-b before:border-primary/40"
                   )}
                 >
                   <div className="markdown">

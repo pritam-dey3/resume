@@ -9,6 +9,7 @@ import OpenSource from "./components/OpenSource";
 import Projects from "./components/Projects";
 import Publications from "./components/Publications";
 import Chatbot from "./components/Chatbot";
+import PcbBackground from "./components/PcbBackground";
 
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -105,6 +106,7 @@ function App() {
 
   return (
     <div id="root">
+      <PcbBackground />
       <Nav smoother={smoother} theme={theme} toggleTheme={toggleTheme} />
       <div id="content">
         <main

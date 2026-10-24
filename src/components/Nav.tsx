@@ -72,7 +72,7 @@ const Nav = ({
   return (
     <div
       ref={navRef}
-      className="mynav w-full flex flex-row shadow-sm fixed top-0 z-20 px-5 py-2 justify-center bg-base-300/98"
+      className="mynav glass-bar w-full flex flex-row fixed top-0 z-20 px-5 py-2 justify-center"
     >
       <div className="flex-1 max-w-339 font-poiret font-bold">
         <Sheet>
@@ -106,7 +106,7 @@ const Nav = ({
                 Select a section to navigate to
               </SheetDescription>
             </SheetHeader>
-            <ul className="menu bg-base-100 w-full p-0 mt-4 text-lg">
+            <ul className="menu bg-transparent w-full p-0 mt-4 text-lg">
               <ScrollSpy activeClass="active font-bold text-primary">
                 {sections.map((section) => (
                   <li key={section.id}>

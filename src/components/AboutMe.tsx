@@ -90,7 +90,6 @@ const AboutMe = ({ data }: AboutMeProps) => {
       className="hero p-4 md:p-12 relative"
       ref={container}
     >
-      <div className="grid-bg"></div>
       <h2 className="hidden!">About Me</h2>
       <div className="hero-content flex-col lg:flex-row gap-12 items-center">
         <div className="avatar shrink-0">
@@ -120,7 +119,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={LinkedIn}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link border rounded-full p-2 hover:bg-accent/15"
+              className="social-link glass-1 glass-hover rounded-full p-2"
               aria-label="LinkedIn"
             >
               <LinkedinLogoIcon size={32} />
@@ -129,14 +128,14 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={GitHub}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link border rounded-full p-2 hover:bg-accent/15"
+              className="social-link glass-1 glass-hover rounded-full p-2"
               aria-label="GitHub"
             >
               <GithubLogoIcon size={32} />
             </a>
             <a
               href={`mailto:${Email}`}
-              className="social-link border rounded-full p-2 hover:bg-accent/15"
+              className="social-link glass-1 glass-hover rounded-full p-2"
               aria-label="Email"
             >
               <AtIcon size={32} />

@@ -18,35 +18,78 @@
   name: "mylight";
   default: false;
   prefersdark: false;
-  --thm-col-base: #fbf8f3;
-  --thm-col-primary: rgb(165 106 5);
-  --thm-col-secondary: oklch(
-    from var(--thm-col-primary) l calc(c + 0.03) calc(h + 90)
-  );
-  --thm-col-accent: #f06c7e;
-  --thm-col-neutral: rgb(63 122 250);
   color-scheme: "light";
-  --color-base-100: var(--thm-col-base);
-  --color-base-200: oklch(
-    from var(--thm-col-base) calc(l - 0.02) calc(c + 0.02) h
-  );
-  --color-base-300: oklch(
-    from var(--thm-col-base) calc(l - 0.07) calc(c + 0.04) h
-  );
-  --color-base-content: oklch(
-    from var(--thm-col-base) calc(1 - l) calc(c + 0.02) h
-  );
-  --color-primary: var(--thm-col-primary);
-  --color-primary-content: white;
 
-  --color-secondary: var(--thm-col-secondary);
-  --color-secondary-content: oklch(
-    from var(--thm-col-secondary) calc(1 - l) c h
+  /* The four glass knobs. Light glass is neutral white over warm paper. */
+  --color-glass-tint: oklch(93% 0.015 235);
+  --glass-opacity: 18%;
+  --glass-blur: 10px;
+  --glass-saturate: 130%;
+
+  /* Surface ladder: 1 field, 2 card, 3 raised, 4 overlay. */
+  --color-glass-1: oklch(
+    from var(--color-glass-tint) 0.985 calc(c * 0.1) h /
+      calc(var(--glass-opacity) * 0.75)
   );
-  --color-accent: var(--thm-col-accent);
-  --color-accent-content: oklch(from var(--thm-col-accent) calc(1 - l) c h);
-  --color-neutral: var(--thm-col-neutral);
-  --color-neutral-content: oklch(from var(--thm-col-neutral) calc(1 - l) c h);
+  --color-glass-2: oklch(
+    from var(--color-glass-tint) 0.99 calc(c * 0.1) h / var(--glass-opacity)
+  );
+  --color-glass-3: oklch(
+    from var(--color-glass-tint) 0.995 calc(c * 0.08) h /
+      calc(var(--glass-opacity) * 1.8)
+  );
+  --color-glass-4: oklch(
+    from var(--color-glass-tint) 1 calc(c * 0.06) h /
+      calc(var(--glass-opacity) * 2.5)
+  );
+  --color-glass-border: oklch(
+    from var(--color-glass-tint) 0.45 calc(c * 0.35) h / 16%
+  );
+  --color-glass-border-strong: oklch(
+    from var(--color-glass-tint) 0.4 calc(c * 0.4) h / 26%
+  );
+  --color-glass-highlight: oklch(100% 0 0 / 80%);
+
+  /* Edge light and reflection: white on white, so keep it restrained. */
+  --glass-reflect-degree: 115deg;
+  --glass-reflect-opacity: 8%;
+  --glass-border-opacity: 20%;
+  --glass-text-shadow-opacity: 0%;
+  --color-glass-sheen: oklch(100% 0 0 / 20%);
+  --color-glass-text-shadow: oklch(100% 0 0 / 0%);
+
+  /* Shadows come from the text colour so they stay visible on paper. */
+  --shadow-glass-sm: 0 1px 2px
+    oklch(from var(--color-base-content) l c h / 8%);
+  --shadow-glass: 0 2px 8px
+    oklch(from var(--color-base-content) l c h / 10%);
+  --shadow-glass-lift: 0 10px 30px
+    oklch(from var(--color-base-content) l c h / 14%);
+  --shadow-glass-lg: 0 18px 48px
+    oklch(from var(--color-base-content) l c h / 18%);
+
+  /* Your original warm paper base. */
+  --color-base-100: #fbf8f3;
+  --color-base-200: var(--color-glass-2);
+  --color-base-300: var(--color-glass-3);
+  --color-base-content: oklch(
+    from var(--color-base-100) calc(1 - l) calc(c + 0.02) h
+  );
+
+  /* Your original light palette. */
+  --color-primary: rgb(165 106 5);
+  --color-primary-content: white;
+  --color-secondary: oklch(
+    from var(--color-primary) l calc(c + 0.03) calc(h + 90)
+  );
+  --color-secondary-content: oklch(
+    from var(--color-secondary) 0.98 0.01 h
+  );
+  --color-accent: #f06c7e;
+  --color-accent-content: oklch(from var(--color-accent) calc(1 - l) c h);
+  --color-neutral: rgb(63 122 250);
+  --color-neutral-content: oklch(from var(--color-neutral) 0.98 0.01 h);
+
   --color-info: oklch(58% 0.158 241.966);
   --color-info-content: oklch(97% 0.013 236.62);
   --color-success: oklch(64% 0.2 131.684);
@@ -55,47 +98,103 @@
   --color-warning-content: oklch(98% 0.016 73.684);
   --color-error: oklch(57% 0.245 27.325);
   --color-error-content: oklch(97% 0.013 17.38);
+
   --radius-selector: 1rem;
-  --radius-field: 0.5rem;
-  --radius-box: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 0.5px;
-  --depth: 1;
-  --noise: 1;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
 }
 
 @plugin "daisyui/theme" {
   name: "mydark";
   default: false;
   prefersdark: true;
-  --thm-col-base: #1d232a;
-  --thm-col-primary: rgb(85 224 255);
-  --thm-col-secondary: oklch(
-    from var(--thm-col-primary) l calc(c + 0.03) calc(h + 90)
-  );
-  --thm-col-accent: #ff6e81;
-  --thm-col-neutral: rgb(250 179 47);
   color-scheme: "dark";
-  --color-base-100: var(--thm-col-base);
-  --color-base-200: oklch(
-    from var(--thm-col-base) calc(l + 0.05) calc(c + 0.02) h
-  );
-  --color-base-300: oklch(
-    from var(--thm-col-base) calc(l - 0.07) calc(c - 0.03) h
-  );
-  --color-base-content: oklch(from var(--thm-col-base) 0.97 calc(c + 0.02) h);
-  --color-primary: var(--thm-col-primary);
-  --color-primary-content: color-contrast(var(--color-primary) vs white), black;
 
-  --color-secondary: var(--thm-col-secondary);
-  --color-secondary-content: oklch(
-    from var(--thm-col-secondary) calc(1 - l) calc(c + 0.02) h
+  /* The four glass knobs. Change these, and every surface below follows. */
+  --color-glass-tint: var(--color-primary);
+  --glass-opacity: 5%;
+  --glass-blur: 9px;
+  --glass-saturate: 140%;
+
+  /* Surface ladder: 1 hover/inset, 2 card, 3 raised, 4 overlay. */
+  --color-glass-1: oklch(
+    from var(--color-glass-tint) 0.9 calc(c * 0.32) h /
+      calc(var(--glass-opacity) * 0.55)
   );
-  --color-accent: var(--thm-col-accent);
-  --color-accent-content: oklch(from var(--thm-col-accent) calc(1 - l) c h);
-  --color-neutral: var(--thm-col-neutral);
-  --color-neutral-content: oklch(from var(--thm-col-neutral) calc(1 - l) c h);
+  --color-glass-2: oklch(
+    from var(--color-glass-tint) 0.92 calc(c * 0.4) h / var(--glass-opacity)
+  );
+  --color-glass-3: oklch(
+    from var(--color-glass-tint) 0.95 calc(c * 0.46) h /
+      calc(var(--glass-opacity) * 1.7)
+  );
+  --color-glass-4: oklch(
+    from var(--color-glass-tint) 0.97 calc(c * 0.5) h /
+      calc(var(--glass-opacity) * 2.3)
+  );
+  --color-glass-border: oklch(
+    from var(--color-glass-tint) 1 calc(c * 0.2) h /
+      calc(var(--glass-opacity) * 2)
+  );
+  --color-glass-border-strong: oklch(
+    from var(--color-glass-tint) 1 calc(c * 0.16) h /
+      calc(var(--glass-opacity) * 3)
+  );
+  --color-glass-highlight: oklch(
+    from var(--color-glass-tint) 1 0 h / calc(var(--glass-opacity) * 1.7)
+  );
+
+  /* Edge light and reflection that make the panes read as glass. */
+  --glass-reflect-degree: 115deg;
+  --glass-reflect-opacity: 4%;
+  --glass-border-opacity: 18%;
+  --glass-text-shadow-opacity: 6%;
+  --color-glass-sheen: oklch(
+    from var(--color-glass-tint) 1 0 h / calc(var(--glass-opacity) * 0.75)
+  );
+  --color-glass-text-shadow: oklch(
+    from var(--color-base-100) l c h / var(--glass-text-shadow-opacity)
+  );
+
+  /*
+   * Elevation. Each token is one shadow: the daisyUI theme parser treats
+   * commas as separators, so utilities compose the layers.
+   */
+  --shadow-glass-sm: 0 1px 2px
+    oklch(from var(--color-base-100) l c h / 30%);
+  --shadow-glass: 0 2px 8px oklch(from var(--color-base-100) l c h / 28%);
+  --shadow-glass-lift: 0 10px 30px
+    oklch(from var(--color-base-100) l c h / 42%);
+  --shadow-glass-lg: 0 18px 48px
+    oklch(from var(--color-base-100) l c h / 55%);
+
+  /* Your original dark blue-grey board; 200/300 are the glass elevations. */
+  --color-base-100: #1d232a;
+  --color-base-200: var(--color-glass-2);
+  --color-base-300: var(--color-glass-3);
+  --color-base-content: oklch(
+    from var(--color-base-100) 0.97 calc(c + 0.02) h
+  );
+
+  /* Your original dark palette. */
+  --color-primary: rgb(85 224 255);
+  --color-primary-content: oklch(22% 0.04 220);
+  --color-secondary: oklch(
+    from var(--color-primary) l calc(c + 0.03) calc(h + 90)
+  );
+  --color-secondary-content: oklch(
+    from var(--color-secondary) calc(1 - l) calc(c + 0.02) h
+  );
+  --color-accent: #ff6e81;
+  --color-accent-content: oklch(from var(--color-accent) calc(1 - l) c h);
+  --color-neutral: rgb(250 179 47);
+  --color-neutral-content: oklch(from var(--color-neutral) calc(1 - l) c h);
+
   --color-info: oklch(58% 0.158 241.966);
   --color-info-content: oklch(97% 0.013 236.62);
   --color-success: oklch(64% 0.2 131.684);
@@ -104,14 +203,216 @@
   --color-warning-content: oklch(98% 0.016 73.684);
   --color-error: oklch(57% 0.245 27.325);
   --color-error-content: oklch(97% 0.013 17.38);
+
   --radius-selector: 1rem;
-  --radius-field: 0.5rem;
-  --radius-box: 0.5rem;
+  --radius-field: 0.75rem;
+  --radius-box: 1.25rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 0.5px;
-  --depth: 1;
-  --noise: 1;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/*
+ * Glass materials. Each level is the same recipe at a different height:
+ * a translucent tint, a blurred + saturated backdrop, a lit edge and a
+ * shadow. Radius and padding stay in the markup.
+ */
+@utility glass-1 {
+  background-color: var(--color-glass-1, var(--color-base-200));
+  background-image: linear-gradient(
+    var(--glass-reflect-degree, 115deg),
+    var(--color-glass-sheen, color-mix(in oklab, var(--color-base-content) 5%, transparent)) 0%,
+    transparent 60%
+  );
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px))
+    saturate(var(--glass-saturate, 160%));
+  backdrop-filter: blur(var(--glass-blur, 18px))
+    saturate(var(--glass-saturate, 160%));
+  border: var(--border, 1px) solid
+    var(
+      --color-glass-border,
+      color-mix(in oklab, var(--color-base-content) 14%, transparent)
+    );
+  box-shadow:
+    var(--shadow-glass-sm, 0 1px 2px color-mix(in oklab, var(--color-base-100) 30%, transparent)),
+    inset 0 1px 0 var(--color-glass-highlight, color-mix(in oklab, var(--color-base-content) 10%, transparent));
+  text-shadow: 0 1px 1px
+    var(--color-glass-text-shadow, color-mix(in oklab, var(--color-base-100) 70%, transparent));
+}
+
+@utility glass-2 {
+  background-color: var(--color-glass-2, var(--color-base-200));
+  background-image: linear-gradient(
+    var(--glass-reflect-degree, 115deg),
+    var(--color-glass-sheen, color-mix(in oklab, var(--color-base-content) 6%, transparent)) 0%,
+    transparent 60%
+  );
+  -webkit-backdrop-filter: blur(var(--glass-blur, 18px))
+    saturate(var(--glass-saturate, 160%));
+  backdrop-filter: blur(var(--glass-blur, 18px))
+    saturate(var(--glass-saturate, 160%));
+  border: var(--border, 1px) solid
+    var(
+      --color-glass-border,
+      color-mix(in oklab, var(--color-base-content) 14%, transparent)
+    );
+  box-shadow:
+    var(--shadow-glass-lift, 0 10px 30px color-mix(in oklab, var(--color-base-100) 35%, transparent)),
+    var(--shadow-glass, 0 2px 8px color-mix(in oklab, var(--color-base-100) 30%, transparent)),
+    inset 0 1px 0 var(--color-glass-highlight, color-mix(in oklab, var(--color-base-content) 10%, transparent));
+  text-shadow: 0 1px 1px
+    var(--color-glass-text-shadow, color-mix(in oklab, var(--color-base-100) 70%, transparent));
+}
+
+@utility glass-3 {
+  background-color: var(--color-glass-3, var(--color-base-300));
+  background-image: linear-gradient(
+    var(--glass-reflect-degree, 115deg),
+    var(--color-glass-sheen, color-mix(in oklab, var(--color-base-content) 6%, transparent)) 0%,
+    transparent 60%
+  );
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur, 18px) * 1.2))
+    saturate(var(--glass-saturate, 160%));
+  backdrop-filter: blur(calc(var(--glass-blur, 18px) * 1.2))
+    saturate(var(--glass-saturate, 160%));
+  border: var(--border, 1px) solid
+    var(
+      --color-glass-border-strong,
+      color-mix(in oklab, var(--color-base-content) 18%, transparent)
+    );
+  box-shadow:
+    var(--shadow-glass-lift, 0 10px 30px color-mix(in oklab, var(--color-base-100) 35%, transparent)),
+    var(--shadow-glass, 0 2px 8px color-mix(in oklab, var(--color-base-100) 30%, transparent)),
+    inset 0 1px 0 var(--color-glass-highlight, color-mix(in oklab, var(--color-base-content) 10%, transparent));
+  text-shadow: 0 1px 1px
+    var(--color-glass-text-shadow, color-mix(in oklab, var(--color-base-100) 70%, transparent));
+}
+
+@utility glass-4 {
+  background-color: var(--color-glass-4, var(--color-base-300));
+  background-image: linear-gradient(
+    var(--glass-reflect-degree, 115deg),
+    var(--color-glass-sheen, color-mix(in oklab, var(--color-base-content) 6%, transparent)) 0%,
+    transparent 60%
+  );
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur, 18px) * 1.5))
+    saturate(var(--glass-saturate, 160%));
+  backdrop-filter: blur(calc(var(--glass-blur, 18px) * 1.5))
+    saturate(var(--glass-saturate, 160%));
+  border: var(--border, 1px) solid
+    var(
+      --color-glass-border-strong,
+      color-mix(in oklab, var(--color-base-content) 18%, transparent)
+    );
+  box-shadow:
+    var(--shadow-glass-lg, 0 18px 48px color-mix(in oklab, var(--color-base-100) 45%, transparent)),
+    var(--shadow-glass, 0 2px 8px color-mix(in oklab, var(--color-base-100) 30%, transparent)),
+    inset 0 1px 0 var(--color-glass-highlight, color-mix(in oklab, var(--color-base-content) 10%, transparent));
+  text-shadow: 0 1px 1px
+    var(--color-glass-text-shadow, color-mix(in oklab, var(--color-base-100) 70%, transparent));
+}
+
+@utility glass-bar {
+  background-color: var(--color-glass-3, var(--color-base-300));
+  background-image: linear-gradient(
+    var(--glass-reflect-degree, 115deg),
+    var(--color-glass-sheen, color-mix(in oklab, var(--color-base-content) 6%, transparent)) 0%,
+    transparent 60%
+  );
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur, 18px) * 1.3))
+    saturate(var(--glass-saturate, 160%));
+  backdrop-filter: blur(calc(var(--glass-blur, 18px) * 1.3))
+    saturate(var(--glass-saturate, 160%));
+  border-bottom: var(--border, 1px) solid
+    var(
+      --color-glass-border,
+      color-mix(in oklab, var(--color-base-content) 14%, transparent)
+    );
+  box-shadow:
+    var(--shadow-glass-lift, 0 10px 30px color-mix(in oklab, var(--color-base-100) 35%, transparent)),
+    var(--shadow-glass, 0 2px 8px color-mix(in oklab, var(--color-base-100) 30%, transparent));
+}
+
+@utility glass-hover {
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+
+  &:hover {
+    background-color: var(--color-glass-3, var(--color-base-300));
+    border-color: var(
+      --color-glass-border-strong,
+      color-mix(in oklab, var(--color-base-content) 22%, transparent)
+    );
+    box-shadow:
+      var(--shadow-glass-lift, 0 10px 30px color-mix(in oklab, var(--color-base-100) 35%, transparent)),
+      var(--shadow-glass, 0 2px 8px color-mix(in oklab, var(--color-base-100) 30%, transparent)),
+      inset 0 1px 0 var(--color-glass-highlight, color-mix(in oklab, var(--color-base-content) 10%, transparent));
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Phones get a tighter blur; the panes stay readable for less GPU work. */
+@media (max-width: 40rem) {
+  [data-theme] {
+    --glass-blur: 6px;
+  }
+}
+
+/* Opaque fallbacks: the border, shadow and tint still separate the layers. */
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .glass-1,
+  .glass-2,
+  .glass-3,
+  .glass-4,
+  .glass-bar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: color-mix(
+      in oklab,
+      var(--color-base-100) 78%,
+      var(--color-neutral)
+    );
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-1,
+  .glass-2,
+  .glass-3,
+  .glass-4,
+  .glass-bar {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: color-mix(
+      in oklab,
+      var(--color-base-100) 82%,
+      var(--color-neutral)
+    );
+  }
 }
 
 section > h2 {
@@ -132,32 +433,6 @@ section > h2::after {
   }
 }
 
-.grid-bg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 0;
-  background-image: linear-gradient(
-      to right,
-      var(--color-base-300) 1px,
-      transparent 1px
-    ),
-    linear-gradient(to bottom, var(--color-base-300) 1px, transparent 1px);
-  background-size: 50px 50px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    #000 60%,
-    transparent 100%
-  );
-}
-
 .card-corner-borders {
   position: relative;
 }
@@ -171,7 +446,7 @@ section > h2::after {
   height: 1.5rem;
   border-top: 2px solid var(--color-primary);
   border-left: 2px solid var(--color-primary);
-  border-radius: var(--radius-lg) 0 0 0;
+  border-radius: var(--radius-box) 0 0 0;
 }
 
 .card-corner-borders::after {
@@ -183,7 +458,7 @@ section > h2::after {
   height: 1.5rem;
   border-bottom: 2px solid var(--color-primary);
   border-right: 2px solid var(--color-primary);
-  border-radius: 0 0 var(--radius-lg) 0;
+  border-radius: 0 0 var(--radius-box) 0;
 }
 
 /* .name {

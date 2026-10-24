@@ -242,6 +242,20 @@
         ]
       }
     </script>
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("theme");
+          const preferred = window.matchMedia("(prefers-color-scheme: dark)")
+            .matches
+            ? "mydark"
+            : "mylight";
+          document.documentElement.dataset.theme = saved || preferred;
+        } catch {
+          // localStorage can be blocked; the app repeats this check.
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -14,7 +14,7 @@ const OpenSource = ({ data }: OpenSourceProps) => {
           <div
             key={index}
             id={`opensource-${item.name.toLowerCase()}`}
-            className="card bg-base-200 shadow-xl hover:shadow-2xl transition-shadow w-full md:w-[calc(50%-var(--spacing)*2)] lg:w-[calc(33.333%-var(--spacing)*8/3)]"
+            className="card glass-2 glass-hover rounded-box w-full md:w-[calc(50%-var(--spacing)*2)] lg:w-[calc(33.333%-var(--spacing)*8/3)]"
           >
             <div className="card-body">
               <h3 className="card-title flex-row justify-between">
