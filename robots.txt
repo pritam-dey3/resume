@@ -1,0 +1,44 @@
+# Search and citation crawlers
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: meta-webindexer
+Allow: /
+
+# User-triggered retrieval
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: meta-externalfetcher
+Allow: /
+
+# Model-training crawlers. Change to Disallow if you prefer not to be trained on.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: *
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
+Allow: /
+
+Sitemap: https://pritamdey.in/sitemap.xml

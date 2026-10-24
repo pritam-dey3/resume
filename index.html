@@ -2,38 +2,76 @@
 <html lang="en" data-theme="mylight">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/portfolio.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/portfolio.png" />
+    <link rel="apple-touch-icon" href="/portfolio.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="preload"
+      href="/fonts/pacifico-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/poiret-one-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <meta
       name="description"
-      content="Pritam Dey is a data scientist focused on AI Agents, LLMs, machine learning, statistics and building intuitive full-stack tools. Portfolio, projects, and contact."
+      content="Data scientist at Amgen building AI agents, LLM tools and forecasting models. Explore Pritam Dey's experience, open-source projects and publications."
     />
     <meta name="author" content="Pritam Dey" />
-    <meta
-      name="keywords"
-      content="Pritam Dey, Data Scientist, AI Agents, LLMs, Large Language Models, Machine Learning, Deep Learning, Statistics, Data Visualization, Full-stack Development, Portfolio, Resume, Projects, Contact, Python, NLP, Natural Language Processing, Statistical Modeling, Bayesian Statistics, Monte Carlo Simulation, Forecasting, Agentic AI, Open Source, React, TypeScript, Amgen, Indian Statistical Institute, ISI Kolkata, LLM Orchestration, Variational Autoencoder, Alzheimer's Disease Classification, Data Engineer"
+    <link rel="canonical" href="https://pritamdey.in/" />
+    <link
+      rel="alternate"
+      type="text/markdown"
+      href="/resume.md"
+      title="Pritam Dey resume (Markdown)"
     />
-    <link rel="canonical" href="https://pritamdey.in" />
+    <link
+      rel="alternate"
+      type="text/html"
+      href="/resume.html"
+      title="Pritam Dey resume (HTML)"
+    />
     <!-- Indexing -->
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1"
+    />
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://pritamdey.in" />
-    <meta property="og:title" content="Pritam Dey - Data Scientist" />
+    <meta property="og:url" content="https://pritamdey.in/" />
+    <meta property="og:site_name" content="Pritam Dey" />
+    <meta property="og:locale" content="en_US" />
+    <meta
+      property="og:title"
+      content="Pritam Dey | Data Scientist, AI Agents & LLMs"
+    />
     <meta
       property="og:description"
-      content="Data scientist focused on AI Agents, LLMs, machine learning, statistics and building intuitive full-stack tools."
+      content="Data scientist at Amgen building AI agents, LLM tools and forecasting models. Explore Pritam Dey's experience, open-source projects and publications."
     />
     <meta property="og:image" content="https://pritamdey.in/profile.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="Pritam Dey, data scientist" />
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Pritam Dey — Data Scientist" />
+    <meta
+      name="twitter:title"
+      content="Pritam Dey | Data Scientist, AI Agents & LLMs"
+    />
     <meta
       name="twitter:description"
-      content="Data scientist focused on AI Agents, LLMs, machine learning, statistics and building intuitive full-stack tools."
+      content="Data scientist at Amgen building AI agents, LLM tools and forecasting models. Explore Pritam Dey's experience, open-source projects and publications."
     />
     <meta name="twitter:image" content="https://pritamdey.in/profile.jpg" />
-    <title>Pritam Dey - Data Scientist</title>
+    <meta name="twitter:image:alt" content="Pritam Dey, data scientist" />
+    <title>Pritam Dey | Data Scientist, AI Agents & LLMs</title>
     <!-- JSON-LD -->
     <script type="application/ld+json">
       {
@@ -41,33 +79,39 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "url": "https://pritamdey.in",
+            "@id": "https://pritamdey.in/#website",
+            "url": "https://pritamdey.in/",
             "name": "Pritam Dey",
-            "description": "Portfolio of Pritam Dey, Data Scientist specializing in AI Agents, LLMs and machine learning."
+            "description": "Portfolio of Pritam Dey, Data Scientist specializing in AI Agents, LLMs and machine learning.",
+            "inLanguage": "en"
           },
 
           {
             "@type": "ProfilePage",
-            "url": "https://pritamdey.in",
-            "name": "Pritam Dey — Data Scientist Portfolio",
+            "@id": "https://pritamdey.in/#profilepage",
+            "url": "https://pritamdey.in/",
+            "name": "Pritam Dey, Data Scientist",
             "description": "Portfolio of Pritam Dey, a data scientist focused on AI Agents, LLMs, machine learning, statistics and intuitive full-stack tools.",
-            "mainEntity": {
-              "@type": "Person",
-              "name": "Pritam Dey",
-              "url": "https://pritamdey.in"
-            },
-            "dateModified": "2026-03-01"
+            "isPartOf": { "@id": "https://pritamdey.in/#website" },
+            "mainEntity": { "@id": "https://pritamdey.in/#person" },
+            "dateModified": "2026-10-24",
+            "inLanguage": "en"
           },
 
           {
             "@type": "Person",
+            "@id": "https://pritamdey.in/#person",
             "name": "Pritam Dey",
-            "url": "https://pritamdey.in",
+            "url": "https://pritamdey.in/",
             "image": "https://pritamdey.in/profile.jpg",
             "jobTitle": "Data Scientist",
-            "email": "pritam.pritamdey.984@gmail.com",
             "description": "Data scientist focused on AI Agents, LLMs, machine learning, statistics and full-stack tools.",
-            "mainEntityOfPage": "https://pritamdey.in",
+            "mainEntityOfPage": { "@id": "https://pritamdey.in/#profilepage" },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Hyderabad",
+              "addressCountry": "IN"
+            },
             "worksFor": {
               "@type": "Organization",
               "name": "Amgen",
@@ -87,14 +131,22 @@
             "knowsLanguage": ["English", "Bengali", "Hindi"],
             "sameAs": [
               "https://github.com/pritam-dey3",
-              "https://www.linkedin.com/in/pritam-dey/"
+              "https://www.linkedin.com/in/pritam-dey/",
+              "https://dev.to/pritam_dey"
             ],
             "knowsAbout": [
               "AI Agents",
+              "Agentic AI",
+              "LLM orchestration",
               "Large Language Models",
               "Machine Learning",
               "Deep Learning",
               "Statistics",
+              "Bayesian statistics",
+              "Monte Carlo simulation",
+              "Forecasting",
+              "Clinical trial analytics",
+              "SAS to R code translation",
               "Data Visualization",
               "Full-stack Development"
             ],
@@ -108,14 +160,21 @@
 
           {
             "@type": "ScholarlyArticle",
+            "@id": "https://pritamdey.in/#publication",
             "headline": "MRI-based MCI and Alzheimer's Disease Classification via Variational Autoencoder and ML Classifiers",
             "name": "MRI-based mild cognitive impairment and Alzheimer's disease classification using an algorithm of combination of variational autoencoder and other machine learning classifiers",
             "url": "https://journals.sagepub.com/doi/10.1177/25424823241290694",
-            "author": {
-              "@type": "Person",
-              "name": "Pritam Dey",
-              "url": "https://pritamdey.in"
+            "datePublished": "2024-10-18",
+            "identifier": {
+              "@type": "PropertyValue",
+              "propertyID": "DOI",
+              "value": "10.1177/25424823241290694"
             },
+            "isPartOf": {
+              "@type": "Periodical",
+              "name": "Journal of Alzheimer's Disease Reports"
+            },
+            "author": { "@id": "https://pritamdey.in/#person" },
             "publisher": {
               "@type": "Organization",
               "name": "SAGE Journals",
@@ -139,11 +198,7 @@
                   "url": "https://github.com/pritam-dey3/WingMate",
                   "applicationCategory": "DeveloperApplication",
                   "operatingSystem": "Any",
-                  "author": {
-                    "@type": "Person",
-                    "name": "Pritam Dey",
-                    "url": "https://pritamdey.in"
-                  },
+                  "author": { "@id": "https://pritamdey.in/#person" },
                   "offers": {
                     "@type": "Offer",
                     "price": "0",
@@ -161,11 +216,7 @@
                   "url": "https://github.com/pritam-dey3/Interact",
                   "applicationCategory": "DeveloperApplication",
                   "operatingSystem": "Any",
-                  "author": {
-                    "@type": "Person",
-                    "name": "Pritam Dey",
-                    "url": "https://pritamdey.in"
-                  },
+                  "author": { "@id": "https://pritamdey.in/#person" },
                   "offers": {
                     "@type": "Offer",
                     "price": "0",
@@ -183,59 +234,13 @@
                   "url": "https://github.com/pritam-dey3/Snatch",
                   "applicationCategory": "DeveloperApplication",
                   "operatingSystem": "Any",
-                  "author": {
-                    "@type": "Person",
-                    "name": "Pritam Dey",
-                    "url": "https://pritamdey.in"
-                  },
+                  "author": { "@id": "https://pritamdey.in/#person" },
                   "offers": {
                     "@type": "Offer",
                     "price": "0",
                     "priceCurrency": "USD"
                   }
                 }
-              }
-            ]
-          },
-
-          {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://pritamdey.in/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Experience",
-                "item": "https://pritamdey.in/#experience"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Projects",
-                "item": "https://pritamdey.in/#projects"
-              },
-              {
-                "@type": "ListItem",
-                "position": 4,
-                "name": "Open Source",
-                "item": "https://pritamdey.in/#open-source"
-              },
-              {
-                "@type": "ListItem",
-                "position": 5,
-                "name": "Publications",
-                "item": "https://pritamdey.in/#publications"
-              },
-              {
-                "@type": "ListItem",
-                "position": 6,
-                "name": "Education",
-                "item": "https://pritamdey.in/#education"
               }
             ]
           }
@@ -256,16 +261,39 @@
         }
       })();
     </script>
-    <script type="module" crossorigin src="/assets/index-C7ZnsCY0.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-Cd7NSxE-.css">
+    <script type="module" crossorigin src="/assets/index-jrPvvfnV.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BPQsbzLo.css">
   </head>
   <body>
     <div id="root"></div>
-  </body>
-
-  <script
+    <noscript>
+      <div class="mx-auto p-4 space-y-4 max-w-339">
+        <h1 class="text-4xl font-bold">Pritam Dey, Data Scientist</h1>
+        <p class="text-lg">
+          Data scientist at Amgen working on AI agents, LLMs, forecasting, and
+          machine learning. Based in Hyderabad, India.
+        </p>
+        <p>
+          <a class="link link-hover" href="/resume.html">Full resume</a>
+          <span aria-hidden="true"> · </span>
+          <a class="link link-hover" href="/resume.md">Markdown resume</a>
+          <span aria-hidden="true"> · </span>
+          <a
+            class="link link-hover"
+            href="https://www.linkedin.com/in/pritam-dey/"
+            >LinkedIn</a
+          >
+          <span aria-hidden="true"> · </span>
+          <a class="link link-hover" href="https://github.com/pritam-dey3"
+            >GitHub</a
+          >
+        </p>
+      </div>
+    </noscript>
+    <script
       defer
       src="https://umami-sv.pritamdey.in/script.js"
       data-website-id="82e1df0d-3c92-47ba-a807-ab14f2f60575"
     ></script>
+  </body>
 </html>

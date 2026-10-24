@@ -1,0 +1,27 @@
+# Pritam Dey
+
+> Data scientist at Amgen working on AI agents, LLMs, forecasting, and machine learning. Based in Hyderabad, India.
+
+## Canonical
+- [Portfolio](https://pritamdey.in/)
+- [HTML resume](https://pritamdey.in/resume.html)
+- [Markdown resume](https://pritamdey.in/resume.md)
+- [Full AI context](https://pritamdey.in/llms-full.txt)
+
+## Sections
+- [Experience](https://pritamdey.in/#experience)
+- [Projects](https://pritamdey.in/#projects)
+- [Blogs](https://pritamdey.in/#blogs)
+- [Education](https://pritamdey.in/#education)
+- [Publications](https://pritamdey.in/#publications)
+- [Open source](https://pritamdey.in/#open-source)
+
+## Profiles
+- [GitHub](https://github.com/pritam-dey3)
+- [LinkedIn](https://www.linkedin.com/in/pritam-dey/)
+- [dev.to](https://dev.to/pritam_dey)
+- [SAGE paper](https://journals.sagepub.com/doi/10.1177/25424823241290694)
+
+## Notes
+- Last updated: 2026-10-24
+- Preferred citation: Pritam Dey, "Pritam Dey — Data Scientist," https://pritamdey.in/.
