@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import FlexSearch from 'flexsearch';
 import type { ProjectItem } from '../../about-me-data/dataTypes';
 
@@ -8,6 +8,12 @@ interface ProjectsProps {
 
 const Projects = ({ data: projects }: ProjectsProps) => {
   const [filteredProjects, setFilteredProjects] = useState<ProjectItem[]>(projects);
+  const [prevProjects, setPrevProjects] = useState<ProjectItem[]>(projects);
+
+  if (prevProjects !== projects) {
+    setPrevProjects(projects);
+    setFilteredProjects(projects);
+  }
 
   const index = useMemo(() => {
     const newIndex = new FlexSearch.Document({
@@ -24,10 +30,6 @@ const Projects = ({ data: projects }: ProjectsProps) => {
     });
 
     return newIndex;
-  }, [projects]);
-
-  useEffect(() => {
-    setFilteredProjects(projects);
   }, [projects]);
 
   return (

@@ -108,7 +108,7 @@ export const useBot = ({ initialMessages, onToolCall }: UseBotOptions): UseBotRe
   const [gettingResponse, setGettingResponse] = useState(false);
 
   const sessionId = useRef<string>(uuidv4());
-  const idCounter = useRef<number>(Date.now());
+  const idCounter = useRef<number>(0);
   const inFlight = useRef(false);
 
   // useEffect(() => {
@@ -125,6 +125,7 @@ export const useBot = ({ initialMessages, onToolCall }: UseBotOptions): UseBotRe
   // }, []);
 
   const createId = () => {
+    if (idCounter.current === 0) idCounter.current = Date.now();
     idCounter.current += 1;
     return idCounter.current.toString();
   };
