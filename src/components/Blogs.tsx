@@ -20,21 +20,23 @@ const Blogs = ({ data }: BlogsProps) => {
               className="absolute inset-y-0 left-0 w-1 bg-secondary"
             />
             <h3 className="text-neutral font-bold text-lg leading-snug mb-2">
-              <a
-                href={blog.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-start gap-1 link link-hover"
-              >
-                {blog.headline}
-                <ArrowRightIcon
-                  size={14}
-                  className="mt-1 shrink-0"
-                  aria-hidden="true"
-                />
-              </a>
+              {blog.headline}
             </h3>
             <p className="text-base-content/80 text-sm flex-1">{blog.description}</p>
+            <a
+              href={blog.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Read post: ${blog.headline}`}
+              className="group mt-3 inline-flex items-center gap-1.5 self-start text-sm font-semibold text-secondary link link-hover"
+            >
+              Read post
+              <ArrowRightIcon
+                size={14}
+                className="shrink-0 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                aria-hidden="true"
+              />
+            </a>
           </div>
         ))}
       </div>

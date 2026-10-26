@@ -1,4 +1,5 @@
 import type { EducationData } from "../../about-me-data/dataTypes";
+import { ArrowUpRightIcon } from "@phosphor-icons/react";
 
 interface EducationProps {
   data: EducationData;
@@ -39,21 +40,30 @@ const Education = ({ data }: EducationProps) => {
               key={`${course.name}-${course.year}`}
               className="glass-1 rounded-box p-3"
             >
-              {course.certificate ? (
-                <a
-                  href={course.certificate}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="link link-hover font-medium"
-                >
-                  {course.name}
-                </a>
-              ) : (
-                <span className="font-medium">{course.name}</span>
-              )}
-              <p className="text-sm text-base-content/70">
-                {course.platform} · {course.year}
-              </p>
+              <div className="flex items-center gap-3">
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium">{course.name}</p>
+                  <p className="text-sm text-base-content/70">
+                    {course.platform} · {course.year}
+                  </p>
+                </div>
+                {course.certificate && (
+                  <a
+                    href={course.certificate}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View certificate for ${course.name}`}
+                    className="badge badge-secondary badge-outline badge-sm shrink-0 gap-1 transition-colors hover:bg-secondary hover:text-secondary-content"
+                  >
+                    Certificate
+                    <ArrowUpRightIcon
+                      size={12}
+                      className="shrink-0"
+                      aria-hidden="true"
+                    />
+                  </a>
+                )}
+              </div>
             </li>
           ))}
         </ul>

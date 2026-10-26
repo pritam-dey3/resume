@@ -22,10 +22,14 @@ const OpenSource = ({ data }: OpenSourceProps) => {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 link link-hover text-accent"
+                  className="flex w-full items-center justify-between gap-2 link link-hover text-accent"
                 >
                   {item.name}
-                  <GithubLogoIcon size={24} aria-hidden="true" />
+                  <GithubLogoIcon
+                    size={24}
+                    className="shrink-0"
+                    aria-hidden="true"
+                  />
                 </a>
               </h3>
               <p dangerouslySetInnerHTML={{ __html: item.description }}></p>
