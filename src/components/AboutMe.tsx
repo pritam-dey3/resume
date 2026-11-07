@@ -9,6 +9,7 @@ import {
   GithubLogoIcon,
   AtIcon,
 } from "@phosphor-icons/react";
+import { trackEvent } from "../lib/analytics";
 
 interface PersonalData {
   description: string;
@@ -128,6 +129,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
               rel="noopener noreferrer"
               className="social-link glass-1 glass-hover rounded-full p-2"
               aria-label="LinkedIn"
+              onClick={() => trackEvent("social_click", { network: "linkedin" })}
             >
               <LinkedinLogoIcon size={32} />
             </a>
@@ -137,6 +139,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
               rel="noopener noreferrer"
               className="social-link glass-1 glass-hover rounded-full p-2"
               aria-label="GitHub"
+              onClick={() => trackEvent("social_click", { network: "github" })}
             >
               <GithubLogoIcon size={32} />
             </a>
@@ -144,6 +147,7 @@ const AboutMe = ({ data }: AboutMeProps) => {
               href={`mailto:${Email}`}
               className="social-link glass-1 glass-hover rounded-full p-2"
               aria-label="Email"
+              onClick={() => trackEvent("social_click", { network: "email" })}
             >
               <AtIcon size={32} />
             </a>

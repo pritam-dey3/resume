@@ -1,5 +1,6 @@
 import type { BlogItem } from "../../about-me-data/dataTypes";
 import { ArrowRightIcon } from "@phosphor-icons/react";
+import { trackEvent } from "../lib/analytics";
 
 interface BlogsProps {
   data: BlogItem[];
@@ -29,6 +30,7 @@ const Blogs = ({ data }: BlogsProps) => {
               rel="noopener noreferrer"
               aria-label={`Read post: ${blog.headline}`}
               className="group mt-3 inline-flex items-center gap-1.5 self-start text-sm font-semibold text-secondary link link-hover"
+              onClick={() => trackEvent("blog_click", { title: blog.headline })}
             >
               Read post
               <ArrowRightIcon

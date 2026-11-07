@@ -1,5 +1,6 @@
 import type { EducationData } from "../../about-me-data/dataTypes";
 import { ArrowUpRightIcon } from "@phosphor-icons/react";
+import { trackEvent } from "../lib/analytics";
 
 interface EducationProps {
   data: EducationData;
@@ -54,6 +55,7 @@ const Education = ({ data }: EducationProps) => {
                     rel="noopener noreferrer"
                     aria-label={`View certificate for ${course.name}`}
                     className="badge badge-secondary badge-outline badge-sm shrink-0 gap-1 transition-colors hover:bg-secondary hover:text-secondary-content"
+                    onClick={() => trackEvent("certificate_click", { course: course.name })}
                   >
                     Certificate
                     <ArrowUpRightIcon

@@ -19,6 +19,10 @@
       type="font/woff2"
       crossorigin
     />
+    <!-- Warm up analytics origins so the post-load tracking requests are fast -->
+    <link rel="preconnect" href="https://umami-sv.pritamdey.in" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://ipapi.co" crossorigin />
     <meta
       name="description"
       content="Data scientist at Amgen building AI agents, LLM tools and forecasting models. Explore Pritam Dey's experience, open-source projects and publications."
@@ -289,79 +293,27 @@
       </div>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
-    <script
-      defer
-      src="https://umami-sv.pritamdey.in/script.js"
-      data-website-id="82e1df0d-3c92-47ba-a807-ab14f2f60575"
-    ></script>
     <script type="module">
-      async function initIdentity(attempt = 0) {
-        if (!window.umami?.identify) {
-          if (attempt < 20) {
-            await new Promise((r) => setTimeout(r, 100));
-            return initIdentity(attempt + 1);
-          }
-          return;
-        }
+      // Umami endpoints are environment-specific (VITE_UMAMI_* in .env files);
+      // the hardcoded values below are the production defaults.
+      window.__UMAMI_CONFIG__ = {
+        scriptUrl:
+          import.meta.env.VITE_UMAMI_SCRIPT_URL ||
+          'https://umami-sv.pritamdey.in/script.js',
+        websiteId:
+          import.meta.env.VITE_UMAMI_WEBSITE_ID ||
+          '82e1df0d-3c92-47ba-a807-ab14f2f60575',
+      };
 
-        const geoPromise = fetch('https://ipapi.co/json/')
-          .then((response) => response.ok ? response.json() : null)
-          .then((data) => data?.ip ? {
-            ip: data.ip,
-            city: data.city,
-            country: data.country_name || data.country,
-            countryCode: data.country_code,
-            region: data.region,
-          } : null)
-          .catch(() => null);
-
-        let thumbmarkData = null;
-
-        try {
-          await import("https://cdn.jsdelivr.net/npm/@thumbmarkjs/thumbmarkjs/dist/thumbmark.umd.js");
-          const t = new window.ThumbmarkJS.Thumbmark();
-          const tmData = await t.get();
-          const components = tmData?.components || {};
-
-          thumbmarkData = {
-            thumbmark: tmData.thumbmark,
-            thumbmarkVersion: tmData.version,
-            thumbmarkConfidence: tmData.info?.uniqueness?.score,
-            tmBrowserName: components.system?.browser?.name,
-            tmBrowserVersion: components.system?.browser?.version,
-            tmPlatform: components.system?.platform,
-            tmLanguage: components.locales?.languages,
-            tmTimezone: components.locales?.timezone,
-            tmCpuCores: components.system?.hardwareConcurrency,
-            tmDeviceMemory: components.hardware?.deviceMemory,
-            tmTouchPoints: components.screen?.maxTouchPoints,
-            tmWebglRenderer: components.hardware?.videocard?.renderer,
-            tmCanvasHash: components.canvas?.commonPixelsHash,
-            tmWebglHash: components.webgl?.commonPixelsHash,
-            tmAudioHash: components.audio?.sampleHash,
-            tmWebrtcHash: components.webrtc?.hash,
-            tmMobile: components.system?.mobile,
-          };
-        } catch {
-          thumbmarkData = null;
-        }
-
-        const uniqueId = thumbmarkData?.thumbmark || localStorage.getItem('umami-fallback-id') || crypto.randomUUID();
-        localStorage.setItem('umami-fallback-id', uniqueId);
-
-        window.umami.identify(uniqueId, thumbmarkData || {});
-
-        const geoData = await geoPromise;
-
-        if (geoData) {
-          window.umami.identify(uniqueId, {
-            ...(thumbmarkData || {}),
-            ...geoData,
-          });
-        }
-      }
-
-      window.addEventListener('load', () => setTimeout(initIdentity, 2000));
+      // Analytics is injected only after the page has fully loaded, so nothing
+      // umami-related competes with the app bundle or delays first paint.
+      // Losing a few analytics hits is preferable to slowing the site down.
+      window.addEventListener('load', () => {
+        const s = document.createElement('script');
+        s.type = 'module';
+        s.src = '/umami-identity.js';
+        document.head.appendChild(s);
+      });
     </script>
   </body>
 </html>

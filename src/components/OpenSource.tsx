@@ -1,5 +1,6 @@
 import type { OpenSourceItem } from "../../about-me-data/dataTypes";
 import { GithubLogoIcon } from "@phosphor-icons/react";
+import { trackEvent } from "../lib/analytics";
 
 interface OpenSourceProps {
   data: OpenSourceItem[];
@@ -23,6 +24,7 @@ const OpenSource = ({ data }: OpenSourceProps) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex w-full items-center justify-between gap-2 link link-hover text-accent"
+                  onClick={() => trackEvent("opensource_click", { name: item.name })}
                 >
                   {item.name}
                   <GithubLogoIcon

@@ -1,4 +1,5 @@
 import type { Publication } from "../../about-me-data/dataTypes";
+import { trackEvent } from "../lib/analytics";
 
 interface PublicationsProps {
   data: Publication;
@@ -16,6 +17,7 @@ const Publications = ({ data }: PublicationsProps) => {
               target="_blank"
               rel="noopener noreferrer"
               className="link link-hover font-medium"
+              onClick={() => trackEvent("publication_click")}
             >
               {data.description}
             </a>

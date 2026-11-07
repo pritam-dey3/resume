@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import FlexSearch from 'flexsearch';
 import type { ProjectItem } from '../../about-me-data/dataTypes';
+import { trackEvent } from '../lib/analytics';
 
 interface ProjectsProps {
   data: ProjectItem[];
@@ -9,6 +10,7 @@ interface ProjectsProps {
 const Projects = ({ data: projects }: ProjectsProps) => {
   const [filteredProjects, setFilteredProjects] = useState<ProjectItem[]>(projects);
   const [prevProjects, setPrevProjects] = useState<ProjectItem[]>(projects);
+  const searchTrackTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   if (prevProjects !== projects) {
     setPrevProjects(projects);
@@ -44,6 +46,12 @@ const Projects = ({ data: projects }: ProjectsProps) => {
           className="input input-bordered glass-1 w-full"
           onChange={(e) => {
             const query = e.target.value;
+            if (searchTrackTimer.current) clearTimeout(searchTrackTimer.current);
+            if (query.trim()) {
+              searchTrackTimer.current = setTimeout(() => {
+                trackEvent("project_search", { query: query.trim().slice(0, 100) });
+              }, 800);
+            }
             if (!query) {
               setFilteredProjects(projects);
               return;

@@ -11,6 +11,7 @@ import {
   SheetHeader,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { trackEvent } from "../lib/analytics";
 
 // gsap.registerPlugin(ScrollTrigger);
 
@@ -114,6 +115,7 @@ const Nav = ({
                       href={`#${section.id}`}
                       onClick={(e) => {
                         e.preventDefault();
+                        trackEvent("nav_click", { section: section.id });
                         smoother.current?.scrollTo(`#${section.id}`, true, "top 20%");
                       }}
                     >

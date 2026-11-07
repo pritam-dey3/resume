@@ -1,9 +1,28 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 const site = "https://pritamdey.in";
 const root = process.cwd();
 const dist = resolve(root, "dist");
+
+// Umami endpoints are environment-specific. Resolution order matches Vite:
+// process env > .env.production > .env > hardcoded production defaults.
+function parseEnvFile(file) {
+  if (!existsSync(file)) return {};
+  const vars = {};
+  for (const line of readFileSync(file, "utf8").split(/\r?\n/)) {
+    const m = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+    if (!m) continue;
+    vars[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+  return vars;
+}
+
+const envFiles = { ...parseEnvFile(resolve(root, ".env")), ...parseEnvFile(resolve(root, ".env.production")) };
+const umamiScriptUrl =
+  process.env.VITE_UMAMI_SCRIPT_URL || envFiles.VITE_UMAMI_SCRIPT_URL || "https://umami-sv.pritamdey.in/script.js";
+const umamiWebsiteId =
+  process.env.VITE_UMAMI_WEBSITE_ID || envFiles.VITE_UMAMI_WEBSITE_ID || "82e1df0d-3c92-47ba-a807-ab14f2f60575";
 
 const readJson = (file) =>
   JSON.parse(readFileSync(resolve(root, "about-me-data", file), "utf8"));
@@ -428,6 +447,10 @@ const resumeHtml = `<!doctype html>
     <link rel="apple-touch-icon" href="/portfolio.png" />
     <link rel="preload" href="/fonts/pacifico-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/poiret-one-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Warm up analytics origins so the post-load tracking requests are fast -->
+    <link rel="preconnect" href="https://umami-sv.pritamdey.in" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://ipapi.co" crossorigin />
     <link rel="stylesheet" href="${cssHref}" />
     <link rel="alternate" type="text/markdown" href="/resume.md" title="Pritam Dey resume (Markdown)" />
     <meta property="og:type" content="profile" />
@@ -444,6 +467,21 @@ const resumeHtml = `<!doctype html>
     <meta name="twitter:description" content="Resume and profile of Pritam Dey, a data scientist at Amgen working on AI agents, LLMs, forecasting, and machine learning." />
     <meta name="twitter:image" content="${site}/profile.jpg" />
     <script type="application/ld+json">${jsonLd}</script>
+    <script>
+      // Umami endpoints resolved at build time from VITE_UMAMI_* env vars.
+      window.__UMAMI_CONFIG__ = {
+        scriptUrl: "${umamiScriptUrl}",
+        websiteId: "${umamiWebsiteId}",
+      };
+      // Analytics is injected only after the page has fully loaded, so nothing
+      // umami-related competes with first paint.
+      window.addEventListener('load', () => {
+        const s = document.createElement('script');
+        s.type = 'module';
+        s.src = '/umami-identity.js';
+        document.head.appendChild(s);
+      });
+    </script>
   </head>
   <body class="bg-base-100 text-base-content">
     <main class="mx-auto p-4 space-y-4 max-w-339">

@@ -21,6 +21,7 @@ import openSourceData from "../about-me-data/open-source.json";
 import personalData from "../about-me-data/personal.json";
 import blogsData from "../about-me-data/blogs.json";
 import projectsData from "../about-me-data/projects.json";
+import { trackEvent } from "./lib/analytics";
 
 const Chatbot = lazy(() => import("./components/Chatbot"));
 
@@ -29,6 +30,7 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 function App() {
   const [showChatbot, setShowChatbot] = useState(false);
   const smoother = useRef<ScrollSmoother | null>(null);
+  const seenSections = useRef<Set<string>>(new Set());
 
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -49,11 +51,10 @@ function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => {
-      const newTheme = prev === "mydark" ? "mylight" : "mydark";
-      localStorage.setItem("theme", newTheme);
-      return newTheme;
-    });
+    const newTheme = theme === "mydark" ? "mylight" : "mydark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    trackEvent("theme_toggle", { to: newTheme });
   };
 
   useEffect(() => {
@@ -96,6 +97,19 @@ function App() {
             ease: "power2.in",
           }
         );
+      });
+
+      gsap.utils.toArray<HTMLElement>("#main section[id]").forEach((section) => {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top 60%",
+          once: true,
+          onEnter: () => {
+            if (seenSections.current.has(section.id)) return;
+            seenSections.current.add(section.id);
+            trackEvent("section_view", { section: section.id });
+          },
+        });
       });
     },
     { scope: "#root" }

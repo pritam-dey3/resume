@@ -8,6 +8,7 @@ import {
 } from "@phosphor-icons/react";
 import { cn } from "../lib/utils";
 import { useBot, type BotTool } from "../lib/bot";
+import { trackEvent } from "../lib/analytics";
 import Markdown from 'react-markdown'
 import "./Chatbot.css";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -238,6 +239,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
     if (!trimmedInput) return;
     setInputValue("");
 
+    trackEvent("chat_message", { chars: trimmedInput.length });
+
     if (mode === "chat") {
       setIsInputMode(false);
     }
@@ -299,6 +302,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
             onClick={() => {
               if (mode === "chat") {
                 setIsExpandingToExtended(true);
+                trackEvent("chat_expand");
                 return;
               }
               setMode("chat");
@@ -400,6 +404,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ smoother }) => {
             onClick={() => {
               setMode("chat");
               setIsInputMode(false);
+              trackEvent("chat_open");
             }}
           >
             <HeadCircuitIcon size={20} weight="fill" />
