@@ -6,7 +6,7 @@ Hyderabad, India
 
 [Portfolio](https://pritamdey.in/) · [LinkedIn](https://www.linkedin.com/in/pritam-dey/) · [GitHub](https://github.com/pritam-dey3) · [Email](mailto:pritam.pritamdey.984@gmail.com)
 
-_Last updated: 2026-10-24_
+_Last updated: 2026-11-07_
 
 ## Summary
 
